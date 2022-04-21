@@ -20,8 +20,7 @@ public class BackwardArrayItTest {
         assertThat(it.hasNext(), is(true));
         it.next();
         assertThat(it.hasNext(), is(true));
-        it.next();
-        assertThat(it.hasNext(), is(true));
+
     }
 
     @Test
