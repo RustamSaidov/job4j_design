@@ -18,7 +18,9 @@ public class EvenNumbersIterator implements Iterator<Integer> {
             if (index < data.length) {
                 if (data[index] % 2 == 0) {
                     return true;
-                } else index++;
+                } else {
+                    index++;
+                }
             }
         }
         return false;
