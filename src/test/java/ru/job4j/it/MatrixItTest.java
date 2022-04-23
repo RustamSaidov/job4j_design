@@ -19,7 +19,7 @@ public class MatrixItTest {
 
     @Test
     public void when4El() {
-        int[][] in = {{1,2, 22}, {3,4}, {1,1}};
+        int[][] in = {{1, 2, 22}, {3, 4}, {1, 1}};
         MatrixIt it = new MatrixIt(in);
         assertThat(it.next(), is(1));
         assertThat(it.next(), is(2));
@@ -29,19 +29,6 @@ public class MatrixItTest {
         assertThat(it.next(), is(1));
         assertThat(it.next(), is(1));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Test

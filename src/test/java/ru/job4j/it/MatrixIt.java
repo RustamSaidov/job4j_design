@@ -14,8 +14,8 @@ public class MatrixIt implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return row<data.length && column<data[column].length;
-        }
+        return row < data.length && column < data[column].length;
+    }
 
     @Override
     public Integer next() {
@@ -30,7 +30,7 @@ public class MatrixIt implements Iterator<Integer> {
 //            row++;
 //            }
 //        return data[column++][row];
-        }
+    }
 //                if (column < data[0].length - 1) {
 //                    return data[row][column++];
 //                }else if(column == data[0].length - 1) {
@@ -40,4 +40,4 @@ public class MatrixIt implements Iterator<Integer> {
 //                }
 //        return data[row][column];
 //        }
-    }
+}

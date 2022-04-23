@@ -14,8 +14,8 @@ public class Array1111 {
         System.out.println("number of rows: " + in.length);
         System.out.println("number of columns: " + in[0].length);
         //System.out.println(in[2][2]);
-        for(int i=row; i<in.length; i++) {
-            for (int j=column; j <in[row].length; j++) {
+        for (int i = row; i < in.length; i++) {
+            for (int j = column; j < in[row].length; j++) {
                 System.out.println(in[i][j]);
             }
             row++;
