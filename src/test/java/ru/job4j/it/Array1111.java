@@ -9,26 +9,19 @@ public class Array1111 {
 
         //int[][] in = {{}, {}, {}};
         //int[][] in = {{}, {}, {1,1,5}, {}, {1,1}, {}};
-        int[][] in = {{1}, {2, 3, 4}, {}, {5, 6}};
+        //int[][] in = {{1}, {2, 3, 4}, {}, {5, 6}};
+        int[][] in = {{1,11, 111}, {2, 5}};
         //int[][] in = {{1,1}, {1,1}, {1,1}};
         //int[][] in = {{}, {1}};
 //        int[][] in = {{1}, {}, {}, {}, {2}};
         System.out.println("number of rows: " + in.length);
         System.out.println("number of columns: " + in[0].length);
         //System.out.println(in[2][2]);
-        for(int i=row; i<in.length; i++) {
-            for (int j=column; j <in[row].length; j++) {
+        for (int i = row; i < in.length; i++) {
+            for (int j = column; j < in[row].length; j++) {
                 System.out.println(in[i][j]);
             }
             row++;
         }
-
-        System.out.println("ex: " + ex + " "+ reEx() + " "+ex + " "+ reEx() + " ");
-        reEx();
-        System.out.println("ex: " + ex + " "+ reEx() + " "+ex + " "+ reEx() + " ");
-    }
-    static int reEx(){
-        //ex=ex+1;
-        return ex++;
     }
 }

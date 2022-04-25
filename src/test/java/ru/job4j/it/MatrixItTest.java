@@ -88,6 +88,33 @@ public class MatrixItTest {
     }
 
     @Test
+    public void whenRowHasDiffSize1() {
+        int[][] in = {
+                {1,11, 111}, {2, 5}, {}, {1,11, 111, 2, 5}
+        };
+        MatrixIt it = new MatrixIt(in);
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(11));
+        assertThat(it.next(), is(111));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(5));
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(11));
+        assertThat(it.next(), is(111));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(5));
+    }
+
+
+
+
+
+
+
+
+
+
+    @Test
     public void whenFewEmpty() {
         int[][] in = {
                 {1}, {}, {}, {}, {2}
@@ -99,14 +126,14 @@ public class MatrixItTest {
 
 
 
-//    @Test(expected = NoSuchElementException.class)
-//    public void whenEmptyThenNext() {
-//        int[][] in = {
-//                {}
-//        };
-//        MatrixIt it = new MatrixIt(in);
-//        it.next();
-//    }
+    @Test(expected = NoSuchElementException.class)
+    public void whenEmptyThenNext() {
+        int[][] in = {
+                {}
+        };
+        MatrixIt it = new MatrixIt(in);
+        it.next();
+    }
 
 
 
@@ -116,26 +143,26 @@ public class MatrixItTest {
 
 
 
-//    @Test
-//    public void when4El() {
-//        int[][] in = {
-//                {1}
-//        };
-//        MatrixIt it = new MatrixIt(in);
-//        assertThat(it.next(), is(1));
-//    }
+    @Test
+    public void when4El() {
+        int[][] in = {
+                {1}
+        };
+        MatrixIt it = new MatrixIt(in);
+        assertThat(it.next(), is(1));
+    }
 
-//    @Test
-//    public void when4El() {
-//        int[][] in = {{1,2, 22}, {3,4}, {1,1}};
-//        MatrixIt it = new MatrixIt(in);
-//        assertThat(it.next(), is(1));
-//        assertThat(it.next(), is(2));
-//        assertThat(it.next(), is(22));
-//        assertThat(it.next(), is(3));
-//        assertThat(it.next(), is(4));
-//        assertThat(it.next(), is(1));
-//        assertThat(it.next(), is(1));
-//    }
+    @Test
+    public void when4El777() {
+        int[][] in = {{1,2, 22}, {3,4}, {1,1}};
+        MatrixIt it = new MatrixIt(in);
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(22));
+        assertThat(it.next(), is(3));
+        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(1));
+    }
 
 }
