@@ -16,12 +16,10 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public void add(T value) {
-        if (size < container.length - 1) {
-            container[size] = value;
-        } else {
+        if (size >= container.length - 1) {
             doubleContainerLength();
-            container[size] = value;
         }
+        container[size] = value;
         size++;
         modCount++;
     }
