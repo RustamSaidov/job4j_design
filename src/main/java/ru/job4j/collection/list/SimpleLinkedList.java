@@ -16,10 +16,11 @@ public class SimpleLinkedList<E> implements List<E> {
         final Node<E> l = last;
         final Node<E> newNode = new Node<>(l, value, null);
         last = newNode;
-        if (l == null)
+        if (l == null) {
             first = newNode;
-        else
+        } else {
             l.next = newNode;
+        }
         size++;
         modCount++;
     }
@@ -53,7 +54,9 @@ public class SimpleLinkedList<E> implements List<E> {
 
             @Override
             public E next() {
-                if (!hasNext()) throw new NoSuchElementException();
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 E tmp = firstItNode.item;
                 firstItNode = firstItNode.next;
                 point++;
