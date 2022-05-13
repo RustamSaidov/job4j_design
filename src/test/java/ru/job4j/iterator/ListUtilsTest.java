@@ -29,4 +29,63 @@ public class ListUtilsTest {
         assertThat(input, is(Arrays.asList(0, 1, 2, 3)));
     }
 
+    @Test
+    public void whenAddAfterTwoTimesLast() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
+        ListUtils.addAfter(input, 2, 3);
+        assertThat(input, is(Arrays.asList(0, 1, 2, 3)));
+        ListUtils.addAfter(input, 3, 44);
+        assertThat(input, is(Arrays.asList(0, 1, 2, 3, 44)));
+    }
+
+    @Test
+    public void whenAddAfterTwoTimesIntoTheSameIndex() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2));
+        ListUtils.addAfter(input, 2, 3);
+        assertThat(input, is(Arrays.asList(0, 1, 2, 3)));
+        ListUtils.addAfter(input, 2, 33);
+        assertThat(input, is(Arrays.asList(0, 1, 2, 33, 3)));
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void whenAddAfterWithInvalidIndex() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(1, 3));
+        ListUtils.addBefore(input, 3, 2);
+    }
+
+    @Test
+    public void whenRemoveAll() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+        ListUtils.removeAll(input, Arrays.asList(2, 3));
+        assertThat(input, is(Arrays.asList(0, 1)));
+    }
+
+
+    @Test
+    public void whenRemoveAllAndOnly() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 111, 222, 333, 444));
+        ListUtils.removeAll(input, Arrays.asList(0, 333));
+        assertThat(input, is(Arrays.asList(111, 222, 444)));
+    }
+
+    @Test
+    public void whenRemoveAllTwoElts() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 11, 22, 3));
+        ListUtils.removeAll(input, Arrays.asList(11, 22));
+        assertThat(input, is(Arrays.asList(0, 3)));
+    }
+
+
+    @Test
+    public void whenAddLastThenRemoveEveryOdd() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+        ListUtils.addAfter(input, 3, 4);
+        ListUtils.addAfter(input, 4, 5);
+        ListUtils.addAfter(input, 5, 6);
+        ListUtils.addAfter(input, 6, 7);
+        assertThat(input, is(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7)));
+        ListUtils.removeAll(input, Arrays.asList(2, 3, 4));
+        assertThat(input, is(Arrays.asList(0, 1, 5, 6, 7)));
+    }
+
 }

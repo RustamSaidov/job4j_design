@@ -40,7 +40,26 @@ public class ListUtils {
     }
 
     public static <T> void removeAll(List<T> list, List<T> elements) {
+        ListIterator<T> iterator = list.listIterator();
+        while (iterator.hasNext()) {
+            for (int i = 0; i < elements.size(); i++) {
+                if (iterator.next() == elements.get(i)) {
+                    iterator.remove();
+                }
+            }
+        }
+        }
 
-    }
+//    public static <T> void removeAll(List<T> list, List<T> elements) {
+//        ListIterator<T> iterator = list.listIterator();
+//        while (iterator.hasNext()) {
+//            if (iterator.next() == index) {
+//                iterator.next();
+//                iterator.add(value);
+//                break;
+//            }
+//            iterator.next();
+//        }
+//    }
 
 }
