@@ -1,9 +1,12 @@
 package ru.job4j.iterator;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -54,38 +57,80 @@ public class ListUtilsTest {
     }
 
     @Test
-    public void whenRemoveAll() {
+    public void whenRemoveAllOneElement() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+        ListUtils.removeAll(input, Arrays.asList(0));
+        assertThat(input, is(Arrays.asList(1, 2, 3)));
+    }
+
+    @Test
+    public void whenRemoveAllSeveralMateElements() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
         ListUtils.removeAll(input, Arrays.asList(2, 3));
         assertThat(input, is(Arrays.asList(0, 1)));
     }
 
-
     @Test
-    public void whenRemoveAllAndOnly() {
-        List<Integer> input = new ArrayList<>(Arrays.asList(0, 111, 222, 333, 444));
-        ListUtils.removeAll(input, Arrays.asList(0, 333));
-        assertThat(input, is(Arrays.asList(111, 222, 444)));
+    public void whenRemoveAllSeveralElements() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
+        ListUtils.removeAll(input, Arrays.asList(0, 3));
+        assertThat(input, is(Arrays.asList(1, 2, 4)));
     }
 
     @Test
-    public void whenRemoveAllTwoElts() {
-        List<Integer> input = new ArrayList<>(Arrays.asList(0, 11, 22, 3));
-        ListUtils.removeAll(input, Arrays.asList(11, 22));
-        assertThat(input, is(Arrays.asList(0, 3)));
+    public void whenRemoveIfOneElement() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+        SamplePredicate<Integer> filter = new SamplePredicate<>();
+        filter.varc1 = 2;
+        ListUtils.removeIf(input, filter);
+        assertThat(input, is(Arrays.asList(0, 1, 3)));
     }
 
+    @Test
+    public void whenRemoveIfSeveralElements() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 2, 4));
+        SamplePredicate<Integer> filter = new SamplePredicate<>();
+        filter.varc1 = 2;
+        ListUtils.removeIf(input, filter);
+        assertThat(input, is(Arrays.asList(0, 1, 3, 4)));
+    }
 
     @Test
-    public void whenAddLastThenRemoveEveryOdd() {
+    public void whenReplaceIfOneElement() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
+        SamplePredicate<Integer> filter = new SamplePredicate<>();
+        filter.varc1 = 2;
+        ListUtils.replaceIf(input, filter, 222);
+        assertThat(input, is(Arrays.asList(0, 1, 222, 3)));
+    }
+
+    @Test
+    public void whenReplaceIfSeveralElements() {
+        List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 2, 4));
+        SamplePredicate<Integer> filter = new SamplePredicate<>();
+        filter.varc1 = 2;
+        ListUtils.replaceIf(input, filter, 222);
+        assertThat(input, is(Arrays.asList(0, 1, 222, 3, 222, 4)));
+    }
+
+    @Test
+    public void whenAddBeforeAddAfterRemoveIfReplaseIfRemoveAll() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
         ListUtils.addAfter(input, 3, 4);
         ListUtils.addAfter(input, 4, 5);
         ListUtils.addAfter(input, 5, 6);
         ListUtils.addAfter(input, 6, 7);
         assertThat(input, is(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7)));
-        ListUtils.removeAll(input, Arrays.asList(2, 3, 4));
-        assertThat(input, is(Arrays.asList(0, 1, 5, 6, 7)));
+        ListUtils.addBefore(input, 1, 2);
+        assertThat(input, is(Arrays.asList(0, 2, 1, 2, 3, 4, 5, 6, 7)));
+        SamplePredicate<Integer> filter = new SamplePredicate<>();
+        filter.varc1 = 2;
+        ListUtils.removeIf(input, filter);
+        assertThat(input, is(Arrays.asList(0, 1, 3, 4, 5, 6, 7)));
+        filter.varc1 = 0;
+        ListUtils.replaceIf(input, filter, 1);
+        assertThat(input, is(Arrays.asList(1, 1, 3, 4, 5, 6, 7)));
+        ListUtils.removeAll(input, Arrays.asList(1, 7));
+        assertThat(input, is(Arrays.asList(3, 4, 5, 6)));
     }
-
 }
