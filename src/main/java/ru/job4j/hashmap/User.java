@@ -1,4 +1,4 @@
-package ru.job4j;
+package ru.job4j.hashmap;
 
 import java.util.Calendar;
 
