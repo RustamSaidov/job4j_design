@@ -7,8 +7,8 @@ import java.util.HashMap;
 public class LearningHashMap {
     public static void main(String[] args) {
         Calendar birthdayData = new GregorianCalendar(2017, 0, 25);
-        User user1 = new User("John", 1, birthdayData);
-        User user2 = new User("John", 1, birthdayData);
+        User user1 = new User("Pete", 1, birthdayData);
+        User user2 = new User("Pete", 1, birthdayData);
         HashMap<User, Object> hashMap = new HashMap<>();
         hashMap.put(user1, new Object());
         hashMap.put(user2, new Object());
