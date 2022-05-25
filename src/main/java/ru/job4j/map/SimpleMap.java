@@ -37,7 +37,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private void expand() {
         if ((float) count / capacity >= LOAD_FACTOR) {
-            MapEntry<K, V>[] tempTable = new MapEntry[capacity *= 2];
+            capacity *= 2;
+            MapEntry<K, V>[] tempTable = new MapEntry[capacity];
             for (int i = 0; i < table.length; i++) {
                 int index = indexFor(hash(table[i].key.hashCode()));
                 tempTable[index] = table[i];
