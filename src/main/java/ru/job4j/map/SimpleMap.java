@@ -32,12 +32,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int indexFor(int hash) {
-        return hash & (table.length - 1);
+        return hash & (capacity - 1);
     }
 
     private void expand() {
-        if (count / capacity >= LOAD_FACTOR) {
-            MapEntry<K, V>[] tempTable = new MapEntry[capacity * 2];
+        if ((float) count / capacity >= LOAD_FACTOR) {
+            MapEntry<K, V>[] tempTable = new MapEntry[capacity *= 2];
             for (int i = 0; i < table.length; i++) {
                 int index = indexFor(hash(table[i].key.hashCode()));
                 tempTable[index] = table[i];
@@ -48,12 +48,14 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
-        MapEntry<K, V> result;
+        MapEntry<K, V> result = null;
         int index = indexFor(hash(key.hashCode()));
-        if (table[index] != null) {
-            result = table[index].key.equals(key) ? table[indexFor(hash(key.hashCode()))] : null;
-        } else {
-            result = null;
+
+        if (table[index] != null && table[index].key.equals(key)) {
+            result = table[index];
+        }
+        if (result == null) {
+            throw new NullPointerException();
         }
         return result.value;
     }
