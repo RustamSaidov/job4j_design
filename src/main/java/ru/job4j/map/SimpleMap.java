@@ -36,10 +36,11 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private void expand() {
-        if (count / LOAD_FACTOR >= 1) {
+        if (count / capacity >= LOAD_FACTOR) {
             MapEntry<K, V>[] tempTable = new MapEntry[capacity * 2];
             for (int i = 0; i < table.length; i++) {
-                tempTable[i] = table[i];
+                int index = indexFor(hash(table[i].key.hashCode()));
+                tempTable[index] = table[i];
             }
             table = tempTable;
         }
@@ -47,9 +48,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
-        MapEntry<K, V> result = table[indexFor(hash(key.hashCode()))];
-        if (result == null) {
-            throw new NullPointerException();
+        MapEntry<K, V> result;
+        int index = indexFor(hash(key.hashCode()));
+        if (table[index] != null) {
+            result = table[index].key.equals(key) ? table[indexFor(hash(key.hashCode()))] : null;
+        } else {
+            result = null;
         }
         return result.value;
     }
@@ -57,12 +61,15 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean result = false;
+        int index = indexFor(hash(key.hashCode()));
         for (int i = 0; i < table.length; i++) {
-            if (table[indexFor(hash(key.hashCode()))] == table[i]) {
-                table[i] = null;
-                count--;
-                modCount++;
-                result = true;
+            if (table[index] == table[i]) {
+                if (table[index].key.equals(key)) {
+                    table[i] = null;
+                    count--;
+                    modCount++;
+                    result = true;
+                }
             }
         }
         return result;
@@ -79,6 +86,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
+                while (point < capacity && table[point] == null) {
+                    point++;
+                }
                 return point < capacity;
             }
 
@@ -87,7 +97,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-
                 return table[point++].key;
             }
         };
