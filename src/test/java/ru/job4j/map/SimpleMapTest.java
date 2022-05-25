@@ -51,12 +51,11 @@ public class SimpleMapTest {
     public void whenTableExpanding() {
         Map<Integer, Integer> map = new SimpleMap<>();
         assertTrue(map.put(12, 9999));
-        assertEquals((Integer) 9999, map.get(3));
+        assertFalse(map.put(4, 1111));
         assertTrue(map.put(1, 1111));
         assertTrue(map.put(2, 1111));
         assertTrue(map.put(3, 1111));
         assertEquals((Integer) 1111, map.get(3));
-        assertTrue(map.put(4, 1111));
         assertTrue(map.put(5, 1111));
         assertTrue(map.put(6, 1111));
         assertTrue(map.put(7, 1111));
@@ -66,5 +65,6 @@ public class SimpleMapTest {
         assertTrue(map.put(11, 1111));
         assertTrue(map.put(12, 9999));
         assertEquals((Integer) 9999, map.get(12));
+        assertFalse(map.put(12, 1111));
     }
 }

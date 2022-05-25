@@ -49,16 +49,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
-        MapEntry<K, V> result = null;
+        V item = null;
         int index = indexFor(hash(key.hashCode()));
-
         if (table[index] != null && table[index].key.equals(key)) {
-            result = table[index];
+            item = table[index].value;
         }
-        if (result == null) {
-            throw new NullPointerException();
-        }
-        return result.value;
+        return item;
     }
 
     @Override
