@@ -12,22 +12,29 @@ public class SimpleTree<E> implements Tree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
-
-
-        Node<E> tempRoot;
-        if(root.value==parent){
+        if (root.value == parent) {
             root.children.add(new Node<>(child));
-        }else{
-            for(int i = 0; i<root.children.size(); i++){
-                if(parent==root.children.get(i).value){
-                    tempRoot=root.children.get(i);
+            rsl = true;
+        } else {
+            rsl = searchInList(parent, child, rsl, root.children);
+        }
+        return rsl;
+    }
+
+    private boolean searchInList(E parent, E child, boolean rsl, List<Node<E>> childrenList) {
+        if (childrenList.isEmpty()) {
+            rsl = false;
+        } else {
+            for (int i = 0; i < childrenList.size(); i++) {
+                Node<E> tempRoot = childrenList.get(i);
+                if (parent == childrenList.get(i).value) {
                     tempRoot.children.add(new Node<>(child));
+                    rsl = true;
+                } else {
+                    rsl = searchInList(parent, child, rsl, tempRoot.children);
                 }
             }
         }
-
-
-
         return rsl;
     }
 
