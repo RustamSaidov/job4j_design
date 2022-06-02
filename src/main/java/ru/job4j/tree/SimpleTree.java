@@ -52,7 +52,6 @@ public class SimpleTree<E, T> implements Tree<E> {
         return rsl;
     }
 
-
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
