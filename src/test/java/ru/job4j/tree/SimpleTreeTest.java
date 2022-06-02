@@ -43,4 +43,25 @@ public class SimpleTreeTest {
         assertTrue(tree.add(1, 7));
     }
 
+    @Test
+    public void whenTreeIsBinary() {
+        Tree<Integer> tree = new SimpleTree<>(1);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(4, 3);
+        assertTrue(tree.isBinary(4).isEmpty());
+    }
+
+    @Test
+    public void whenTreeIsNOTBinary() {
+        Tree<Integer> tree = new SimpleTree<>(1);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(4, 3);
+        tree.add(4, 6);
+        assertTrue(tree.isBinary(4).isPresent());
+    }
+
+
+
 }
