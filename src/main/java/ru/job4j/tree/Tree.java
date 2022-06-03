@@ -11,7 +11,7 @@ public interface Tree<E> {
 
     Optional<Node<E>> findBy(E value);
 
-    Optional<Node<E>> isBinary(E value);
+    boolean isBinary();
 
     class Node<E> {
         E value;
@@ -20,7 +20,6 @@ public interface Tree<E> {
         public Node(E value) {
             this.value = value;
         }
-
 
         @Override
         public boolean equals(Object o) {
@@ -39,6 +38,4 @@ public interface Tree<E> {
             return Objects.hash(value);
         }
     }
-
-
 }
