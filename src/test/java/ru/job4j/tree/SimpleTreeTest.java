@@ -49,7 +49,10 @@ public class SimpleTreeTest {
         tree.add(1, 4);
         tree.add(4, 5);
         tree.add(4, 3);
-        assertTrue(tree.isBinary(4).isEmpty());
+        tree.add(5, 9);
+        tree.add(9, 8);
+        tree.add(9, 10);
+        assertTrue(tree.isBinary());
     }
 
     @Test
@@ -59,9 +62,8 @@ public class SimpleTreeTest {
         tree.add(4, 5);
         tree.add(4, 3);
         tree.add(4, 6);
-        assertTrue(tree.isBinary(4).isPresent());
+        assertFalse(tree.isBinary());
     }
-
 
 
 }

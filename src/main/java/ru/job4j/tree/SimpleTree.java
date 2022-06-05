@@ -1,39 +1,44 @@
 package ru.job4j.tree;
 
-import ru.job4j.iterator.ListUtils;
-import ru.job4j.iterator.SamplePredicate;
-
 import java.util.*;
-import java.util.function.Predicate;
 
-public class SimpleTree<E, T> implements Tree<E> {
+
+public class SimpleTree<E> implements Tree<E> {
     private final Node<E> root;
 
     public SimpleTree(final E root) {
         this.root = new Node<>(root);
     }
 
-    public Optional<Node<E>> isBinary(E value) {
-        Optional<Node<E>> result = Optional.empty();
-        Optional<Node<E>> node = findBy(value);
-        if (node.get().children.size() > 2) {
-            result = node;
+    @FunctionalInterface
+    public interface Predicate<T> {
+        boolean test(T t);
+    }
+
+    public boolean isBinary() {
+        IsBinaryPredicate<Node<E>> filter = new IsBinaryPredicate<>();
+        return findByPredicate(filter).isEmpty();
+    }
+
+    public class IsBinaryPredicate<T> implements Predicate<T> {
+        public boolean test(T t) {
+            Tree.Node<E> el = (Node<E>) t;
+            return el.children.size() > 2;
         }
-        return result;
     }
 
     @Override
     public Optional<Node<E>> findBy(E value) {
         EqualsPredicate<Node<E>> filter = new EqualsPredicate<>();
-        filter.varc1 = new Node<>(value);
+        filter.t1 = new Node<>(value);
         return findByPredicate(filter);
     }
 
     public static class EqualsPredicate<T> implements Predicate<T> {
-        T varc1;
+        T t1;
 
-        public boolean test(T varc) {
-            return varc1.equals(varc);
+        public boolean test(T t) {
+            return t1.equals(t);
         }
     }
 
