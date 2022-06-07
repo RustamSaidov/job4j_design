@@ -40,8 +40,12 @@ public class Info {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Info)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Info)) {
+            return false;
+        }
         Info info = (Info) o;
         return getAdded() == info.getAdded() && getChanged() == info.getChanged() && getDeleted() == info.getDeleted();
     }
