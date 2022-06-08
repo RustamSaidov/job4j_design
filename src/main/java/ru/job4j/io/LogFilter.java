@@ -2,6 +2,7 @@ package ru.job4j.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +15,21 @@ public class LogFilter {
                     filterList.add(line);
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return filterList;
     }
 
+    public static void lineBylineOutput(List<String> list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+    }
+
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("log.txt");
-        System.out.println(log);
+        lineBylineOutput(log);
     }
 }
