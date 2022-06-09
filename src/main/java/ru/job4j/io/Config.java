@@ -25,7 +25,7 @@ public class Config {
                 ) {
                     throw new IllegalArgumentException();
                 }
-                if (line.contains("=") && !line.contains("#")) {
+                if (line.indexOf("#") != 0 && line.contains("=")) {
                     String key = line.substring(0, line.indexOf('='));
                     String val = line.substring(line.indexOf('=') + 1);
                     values.put(key, val);
