@@ -20,8 +20,6 @@ public class Analizy {
                         out.println(intervalBeginning + ";" + intervalEnd + ";");
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         } catch (IOException e) {
             e.printStackTrace();
