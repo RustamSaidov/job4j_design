@@ -13,7 +13,6 @@ public class Analizy {
         try (BufferedReader in = new BufferedReader(new FileReader(source))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 if ((line.contains("400") || line.contains("500")) && !serverOffFlag) {
-                    //filterList.add(line);
                     intervalBeginning = line.substring(4);
                     serverOffFlag = true;
                 }
