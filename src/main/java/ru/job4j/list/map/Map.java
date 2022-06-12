@@ -1,4 +1,4 @@
-package ru.job4j.map;
+package ru.job4j.list.map;
 
 public interface Map<K, V> extends Iterable<K> {
     boolean put(K key, V value);

@@ -1,6 +1,8 @@
 package ru.job4j.map;
 
 import org.junit.Test;
+import ru.job4j.list.map.Map;
+import ru.job4j.list.map.SimpleMap;
 
 import static org.junit.Assert.*;
 
