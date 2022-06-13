@@ -41,6 +41,7 @@ class SearchFiles implements FileVisitor<Path> {
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         if (condition.test(file)) {
             listPath.add(file.getFileName());
+            //listPath.add(file.toAbsolutePath());
         }
         return FileVisitResult.CONTINUE;
     }
