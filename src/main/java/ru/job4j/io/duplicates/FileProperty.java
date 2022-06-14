@@ -5,7 +5,6 @@ import java.util.Objects;
 public class FileProperty {
 
 
-
     private long size;
 
     private String name;
@@ -41,22 +40,19 @@ public class FileProperty {
         }
         FileProperty that = (FileProperty) o;
         return
-                //size == that.size&&
-        Objects.equals(name, that.name);
+                size == that.size &&
+                        Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-               // size,
+                size,
                 name);
     }
 
     @Override
     public String toString() {
-        return "FileProperty{" +
-                "size=" + size +
-                ", name='" + name + '\'' +
-                '}';
+        return "FileProperty{" + "size=" + size + ", name='" + name + '\'' + '}';
     }
 }
