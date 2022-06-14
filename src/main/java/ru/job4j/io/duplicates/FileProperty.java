@@ -40,8 +40,7 @@ public class FileProperty {
         }
         FileProperty that = (FileProperty) o;
         return
-                size == that.size &&
-                        Objects.equals(name, that.name);
+                size == that.size && Objects.equals(name, that.name);
     }
 
     @Override
