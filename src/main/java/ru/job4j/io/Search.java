@@ -5,16 +5,40 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        /*выдает путь и название всех файлов:
-        Path start = Paths.get(".");
-        Files.walkFileTree(start, new PrintFiles());*/
+        argumentTransferValidation(args);
+        folderAdressValidatoin(args);
+        fileExtentionValidation(args);
 
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith(".js")).forEach(System.out::println);
+        Path start = Paths.get(args[0]);
+        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
+    }
+
+    /*Проверка того, что в аргументе было передано нужное расширение файла*/
+    private static void fileExtentionValidation(String[] args) {
+        if (!args[1].equals(".js")) {
+            throw new IllegalArgumentException("Wrong file extension for search. Change the file extension search "
+                    + "argument according to the search conditions.");
+        }
+    }
+
+    /*Проверка того, что в аргументе был передан нужный адрес папки для проверки файлов*/
+    private static void folderAdressValidatoin(String[] args) {
+        if (!Objects.equals(args[0], "C:\\projects")) {
+            throw new IllegalArgumentException("Wrong folder to search. Change the folder search arguments according "
+                    + "to the search conditions.");
+        }
+    }
+
+    /*Проверка того, что были переданы аргументы коммандной строки*/
+    private static void argumentTransferValidation(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Root folder is null. Usage java -jar dir.jar ROOT_FOLDER.");
+        }
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
@@ -40,7 +64,6 @@ class SearchFiles implements FileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         if (condition.test(file)) {
-            /*listPath.add(file.getFileName());*/
             listPath.add(file.toAbsolutePath());
         }
         return FileVisitResult.CONTINUE;
