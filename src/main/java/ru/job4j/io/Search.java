@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -10,17 +11,21 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        argumentTransferValidation(args);
-        folderAdressValidatoin(args);
-        fileExtentionValidation(args);
+        argumentsValidation(args);
 
         Path start = Paths.get(args[0]);
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
+    private static void argumentsValidation(String[] args) {
+        argumentTransferValidation(args);
+        folderAdressValidatoin(args);
+        fileExtentionValidation(args);
+    }
+
     /*Проверка того, что в аргументе было передано нужное расширение файла*/
     private static void fileExtentionValidation(String[] args) {
-        if (!args[1].equals(".js")) {
+        if (!args[1].startsWith(".")) {
             throw new IllegalArgumentException("Wrong file extension for search. Change the file extension search "
                     + "argument according to the search conditions.");
         }
@@ -28,9 +33,12 @@ public class Search {
 
     /*Проверка того, что в аргументе был передан нужный адрес папки для проверки файлов*/
     private static void folderAdressValidatoin(String[] args) {
-        if (!Objects.equals(args[0], "C:\\projects")) {
-            throw new IllegalArgumentException("Wrong folder to search. Change the folder search arguments according "
-                    + "to the search conditions.");
+        File file = new File(args[0]);
+        if (!file.exists()) {
+            throw new IllegalArgumentException(String.format("Folder %s Not exist ", file.getAbsoluteFile()));
+        }
+        if (!file.isDirectory()) {
+            throw new IllegalArgumentException(String.format("Folder %s Not directory ", file.getAbsoluteFile()));
         }
     }
 
