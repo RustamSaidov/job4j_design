@@ -15,40 +15,35 @@ public class ArgsName {
     }
 
     private void parse(String[] args) throws IllegalArgumentException {
-        argumentValidation(args);
+
         for (int i = 0; i < args.length; i++) {
+            argumentValidation(args[i]);
             String substr1 = args[i].substring(1, args[i].indexOf('='));
             String substr2 = args[i].substring(args[i].indexOf('=') + 1);
             values.put(substr1, substr2);
         }
     }
 
-    private static void argumentValidation(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("The passed array of parameters is empty");
+    private static void argumentValidation(String argsStr) {
+        if (!argsStr.startsWith("-")) {
+            throw new IllegalArgumentException("The '-' sign of the beginning of the \"-key=value\" type argument was not found");
         }
-        for (int i = 0; i < args.length; i++) {
+        if (!argsStr.contains("=")) {
+            throw new IllegalArgumentException("The '=' sign between \"-key=value\" type argument was not found");
+        }
+        if (argsStr.indexOf('=') == 1) {
+            throw new IllegalArgumentException("The \"key\" type argument was not found");
+        }
 
-            if (!args[i].startsWith("-")) {
-                throw new IllegalArgumentException("The '-' sign of the beginning of the \"-key=value\" type argument was not found");
-            }
-            if (args[i].indexOf('=') == args.length) {
-                throw new IllegalArgumentException("The value of the \"value\" field is missing");
-            }
-            if (!args[i].contains("=")) {
-                throw new IllegalArgumentException("The '=' sign between \"-key=value\" type argument was not found");
-            }
-            if (args[i].indexOf('=') == 1) {
-                throw new IllegalArgumentException("The \"key\" type argument was not found");
-            }
-
-            if (args[i].indexOf('=') == args[i].length() - 1) {
-                throw new IllegalArgumentException("The \"value\" type argument was not found");
-            }
+        if (argsStr.indexOf('=') == argsStr.length() - 1) {
+            throw new IllegalArgumentException("The \"value\" type argument was not found");
         }
     }
 
     public static ArgsName of(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("The passed array of parameters is empty");
+        }
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
