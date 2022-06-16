@@ -17,7 +17,7 @@ public class Search {
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
-    private static void argumentsValidation(String[] args) {
+    static void argumentsValidation(String[] args) {
         argumentTransferValidation(args);
         folderAdressValidatoin(args);
         fileExtentionValidation(args);
@@ -54,6 +54,8 @@ public class Search {
         Files.walkFileTree(root, searcher);
         return searcher.getPaths();
     }
+
+
 }
 
 class SearchFiles implements FileVisitor<Path> {

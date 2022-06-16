@@ -7,14 +7,14 @@ public class ArgsName {
 
     private final Map<String, String> values = new HashMap<>();
 
-    public String get(String key) throws IllegalArgumentException {
+    public String get(String key) {
         if (!values.containsKey(key)) {
             throw new IllegalArgumentException("Parameter with key " + key + " does not exist");
         }
         return values.get(key);
     }
 
-    private void parse(String[] args) throws IllegalArgumentException {
+    private void parse(String[] args) {
 
         for (int i = 0; i < args.length; i++) {
             argumentValidation(args[i]);
@@ -47,6 +47,10 @@ public class ArgsName {
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
+    }
+
+    public Map<String, String> getValues() {
+        return values;
     }
 
     public static void main(String[] args) {
