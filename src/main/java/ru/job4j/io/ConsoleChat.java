@@ -9,8 +9,8 @@ public class ConsoleChat {
     private static final String CONTINUE = "продолжить";
     private boolean stopFlag = false;
     private boolean outFlag = false;
-    List<String> log = new ArrayList<>();
-    List<String> randomPhrasesList = new ArrayList<>();
+    private List<String> log = new ArrayList<>();
+    private List<String> randomPhrasesList = new ArrayList<>();
     private final String path;
     private final String botAnswers;
 
@@ -34,7 +34,8 @@ public class ConsoleChat {
                 stopFlag = true;
             } else if (Objects.equals(str, CONTINUE)) {
                 stopFlag = false;
-            } else if (!stopFlag) {
+            }
+            if (!stopFlag && !outFlag) {
                 randomAnswer = randomPhrasesList.get((int) (Math.random() * randomPhrasesList.size()));
                 System.out.println("Bot answers:");
                 System.out.println(randomAnswer);
