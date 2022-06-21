@@ -1,55 +1,116 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.util.*;
 
 public class CSVReader {
 
     public static void handle(ArgsName argsName) throws Exception {
-        //List<String> filterList = new ArrayList<>();
         List<String> dataList = new ArrayList<>();
+        List<String> filteredColumnsNamesList = new ArrayList<>();
+        Set<String> filteredColumnsNamesSet = new HashSet<>();
 
         int lineCount = 0;
         int columnsCount = 0;
+        int filteredColumnCount = 0;
+        convertDataIntoListOfLines(argsName, dataList);
+        lineCount = dataList.size();
+        columnsCount = getColumnsCount(dataList, columnsCount, ";");
+        String[][] dataArray = new String[lineCount][columnsCount];
+
+        convertingListOfLinesIntoArray(dataList, lineCount, columnsCount, dataArray, ";");
+
+        filteredColumnsNamesList.add(argsName.getValues().get("filter"));
+        filteredColumnCount = getColumnsCount(filteredColumnsNamesList, filteredColumnCount, ",");
+        String[][] filteredColumnsNamesArray = new String[1][filteredColumnCount];
+        convertingListOfLinesIntoArray(filteredColumnsNamesList, 1, filteredColumnCount, filteredColumnsNamesArray, ",");
+
+
+        fillingSetByFilteredColumnsNames(filteredColumnsNamesSet, filteredColumnsNamesArray);
+        System.out.println("set: " + filteredColumnsNamesSet);
+
+        String[][] filteredDataArray = new String[lineCount][filteredColumnsNamesSet.size()];
+
+        filterDataArray(filteredColumnsNamesSet, dataArray, filteredDataArray);
+
+
+        System.out.println(Arrays.deepToString(filteredDataArray));
+        System.out.println("----------------");
+        System.out.println(Arrays.deepToString(filteredColumnsNamesArray));
+        System.out.println("----------------");
+        System.out.println(Arrays.deepToString(dataArray));
+        System.out.println("----------------");
+
+        saveToFilteredList(argsName, filteredDataArray);
+
+    }
+
+    private static void filterDataArray(Set<String> filteredColumnsNamesSet, String[][] dataArray, String[][] filteredDataArray) {
+        int k = 0;
+        for (int i = 0; i < dataArray.length; i++) {
+            for (int j = 0; j < dataArray[0].length; j++) {
+                if (filteredColumnsNamesSet.contains(dataArray[0][j])) {
+                    filteredDataArray[i][k] = dataArray[i][j];
+                    System.out.println(filteredDataArray[i][k] + "!!!");
+                    k++;
+                }
+            }
+            k = 0;
+        }
+    }
+
+    private static void fillingSetByFilteredColumnsNames(Set<String> filteredColumnsNamesSet, String[][] filteredColumnsNamesArray) {
+        for (int i = 0; i < filteredColumnsNamesArray.length; i++) {
+            for (int j = 0; j < filteredColumnsNamesArray[0].length; j++) {
+                filteredColumnsNamesSet.add(filteredColumnsNamesArray[i][j]);
+            }
+        }
+    }
+
+    private static void convertDataIntoListOfLines(ArgsName argsName, List<String> dataList) {
         try (BufferedReader in = new BufferedReader(new FileReader(argsName.getValues().get("path")))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 dataList.add(line);
-                lineCount++;
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static int getColumnsCount(List<String> dataList, int columnsCount, String delimiter) {
         var scanner = new Scanner(new ByteArrayInputStream(dataList.get(0).getBytes()))
-                .useDelimiter(";");
+                .useDelimiter(delimiter
+                        //";"
+                );
         while (scanner.hasNext()) {
             scanner.next();
             columnsCount++;
         }
-        String[][] dataArray = new String[lineCount][columnsCount];
-        String[][] filterArray = new String[lineCount][columnsCount];
+        return columnsCount;
+    }
 
-
+    private static void convertingListOfLinesIntoArray(List<String> list, int lineCount, int columnsCount, String[][] dataArray, String delimiter) {
         for (int i = 0; i < lineCount; i++) {
-            var scanner1 = new Scanner(new ByteArrayInputStream(dataList.get(i).getBytes()))
-                    .useDelimiter(";");
+            var scanner1 = new Scanner(new ByteArrayInputStream(list.get(i).getBytes()))
+                    .useDelimiter(delimiter
+                            //";"
+                    );
             for (int j = 0; j < columnsCount; j++) {
                 String str = scanner1.next();
-                System.out.println(str + "&&&");
                 dataArray[i][j] = str;
             }
         }
+    }
 
-        System.out.println(Arrays.deepToString(dataArray));
-        System.out.println("----------------");
-
-        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream("out")))) {
-            for (int i = 0; i < filterArray.length; i++) {
-                for(int j = 0; j < filterArray[0].length; j++){
-                    out.println(filterArray[i][j]);
+    private static void saveToFilteredList(ArgsName argsName, String[][] filteredDataArray) {
+        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(argsName.getValues().get("out"))))) {
+            for (int i = 0; i < filteredDataArray.length; i++) {
+                for (int j = 0; j < filteredDataArray[0].length; j++) {
+                    out.print(filteredDataArray[i][j] + " ");
                 }
-
+                out.println();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,7 +139,5 @@ public class CSVReader {
                 "William;30"
         ).concat(System.lineSeparator());
         CSVReader.handle(argsName);
-
-
     }
 }
