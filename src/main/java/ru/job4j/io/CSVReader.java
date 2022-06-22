@@ -2,6 +2,7 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public class CSVReader {
@@ -19,7 +20,7 @@ public class CSVReader {
         convertingListOfLinesIntoArray(filteredColumnsNamesList, 1, filteredColumnCount, filteredColumnsNamesArray, ",");
         Set<String> filteredColumnsNamesSet = fillingSetByFilteredColumnsNames(filteredColumnsNamesArray);
         String[][] filteredDataArray = filterDataArray(filteredColumnsNamesSet, dataArray);
-        saveToFilteredList(argsName, filteredDataArray);
+        outFilteredResult(argsName, filteredDataArray);
     }
 
     private static String[][] filterDataArray(Set<String> filteredColumnsNamesSet, String[][] dataArray) {
@@ -53,7 +54,6 @@ public class CSVReader {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 dataList.add(line);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,6 +82,28 @@ public class CSVReader {
         }
     }
 
+    private static void outFilteredResult(ArgsName argsName, String[][] filteredDataArray) {
+        if (argsName.getValues().get("out").equals("stdout")) {
+            outResultToConsole(filteredDataArray);
+
+        } else {
+            saveToFilteredList(argsName, filteredDataArray);
+        }
+    }
+
+    private static void outResultToConsole(String[][] filteredDataArray) {
+        for (int i = 0; i < filteredDataArray.length; i++) {
+            for (int j = 0; j < filteredDataArray[0].length; j++) {
+                if (j < filteredDataArray[0].length - 1) {
+                    System.out.print(filteredDataArray[i][j] + ";");
+                } else {
+                    System.out.print(filteredDataArray[i][j]);
+                }
+            }
+            System.out.println();
+        }
+    }
+
     private static void saveToFilteredList(ArgsName argsName, String[][] filteredDataArray) {
         try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(argsName.getValues().get("out"))))) {
             for (int i = 0; i < filteredDataArray.length; i++) {
@@ -99,18 +121,52 @@ public class CSVReader {
         }
     }
 
+    private static void argumentTransferValidation(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Root folder is null. Usage java -jar dir.jar ROOT_FOLDER.");
+        }
+    }
+
+    private static void folderAdressValidatoin(ArgsName argsName) {
+        File fullPath = new File(argsName.getValues().get("path"));
+        File file = new File(fullPath.getParent());
+
+        if (!file.exists()) {
+            throw new IllegalArgumentException(String.format("Folder %s Not exist ", file.getAbsoluteFile()));
+        }
+        if (!file.isDirectory()) {
+            throw new IllegalArgumentException(String.format("Folder %s Not directory ", file.getAbsoluteFile()));
+        }
+    }
+
+    private static void fileExtentionValidation(ArgsName argsName) {
+        File file = new File(argsName.getValues().get("path"));
+
+        if (!file.getName().endsWith(".csv")) {
+            throw new IllegalArgumentException("Wrong file extension for search. Change the file extension search "
+                    + "argument according to the search conditions.");
+        }
+    }
+
+    private static void delimiterTypeValidation(ArgsName argsName) {
+        String delimiter = argsName.getValues().get("delimiter");
+
+        if (!delimiter.equals(";")) {
+            throw new IllegalArgumentException("Wrong delimiter sign. Change the delimiter sign "
+                    + "argument according to the file extention.");
+        }
+    }
+
+    static void csvArgumentsValidation(ArgsName argsName) {
+        folderAdressValidatoin(argsName);
+        fileExtentionValidation(argsName);
+        delimiterTypeValidation(argsName);
+    }
+
     public static void main(String[] args) throws Exception {
-        String data = String.join(
-                System.lineSeparator(),
-                "name;age;last_name;education",
-                "Tom;20;Smith;Bachelor",
-                "Jack;25;Johnson;Undergraduate",
-                "William;30;Brown;Secondary special"
-        );
-        File file = new File("source.csv");
-        File target = new File("target.csv");
+        argumentTransferValidation(args);
         ArgsName argsName = ArgsName.of(args);
-        Files.writeString(file.toPath(), data);
+        csvArgumentsValidation(argsName);
         CSVReader.handle(argsName);
     }
 }
