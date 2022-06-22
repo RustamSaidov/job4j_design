@@ -1,6 +1,7 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 
 public class CSVReader {
@@ -96,5 +97,20 @@ public class CSVReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        String data = String.join(
+                System.lineSeparator(),
+                "name;age;last_name;education",
+                "Tom;20;Smith;Bachelor",
+                "Jack;25;Johnson;Undergraduate",
+                "William;30;Brown;Secondary special"
+        );
+        File file = new File("source.csv");
+        File target = new File("target.csv");
+        ArgsName argsName = ArgsName.of(args);
+        Files.writeString(file.toPath(), data);
+        CSVReader.handle(argsName);
     }
 }
