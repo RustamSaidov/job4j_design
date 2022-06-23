@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 public class CSVReader {
@@ -83,7 +81,7 @@ public class CSVReader {
     }
 
     private static void outFilteredResult(ArgsName argsName, String[][] filteredDataArray) {
-        if (argsName.getValues().get("out").equals("stdout")) {
+        if ("stdout".equals(argsName.getValues().get("out"))) {
             outResultToConsole(filteredDataArray);
 
         } else {
