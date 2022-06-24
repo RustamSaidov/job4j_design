@@ -17,7 +17,7 @@ public class UsageLog4j {
         boolean bool = true;
         char c = 'c';
 
-        LOG.debug("User info name byte b : {}, short sh : {}, int i : {}, long l : {}, float f : {}, double d : {}, " +
-                "boolean bool : {}, char c : {}", b, sh, i, l, f, d, bool, c);
+        LOG.debug("User info name byte b : {}, short sh : {}, int i : {}, long l : {}, float f : {}, double d : {}, "
+                + "boolean bool : {}, char c : {}", b, sh, i, l, f, d, bool, c);
     }
 }
