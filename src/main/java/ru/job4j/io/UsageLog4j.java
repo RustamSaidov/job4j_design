@@ -8,6 +8,13 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
+        /*Пример работы Логгера для вывода сообщения о исключении:*/
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception e) {
+            LOG.error("Exception in log example", e);
+        }
+
         byte b = 1;
         short sh = 1000;
         int i = 1000000;
