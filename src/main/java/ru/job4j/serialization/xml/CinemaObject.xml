@@ -1,10 +1,10 @@
 <?xml version="1.1" encoding="UTF-8" ?>
-<cinemaObject isRealised="true" yearOfRealise="1984">
-    <contact nameOfCinema="Terminator"/>
-    <cinemaCreatorInfo directorName="James" directorSurname="Cameron" producerName="Gale" producerSurname="Anne Hurd"/>
-    <montlyIncome>
-        <status>500000</status>
-        <status>400000</status>
-        <status>300000</status>
-    </montlyIncome>
-</cinemaObject>
+<cinemaObjectForXMLTask isRealised="true" yearOfRealise="1984" nameOfCinema="Terminator">
+    <cinemaCreatorInfoForXMLTask directorName="James" directorSurname="Cameron" producerName="Gale"
+                                 producerSurname="Anne Hurd"/>
+    <montlyIncomes>
+        <montlyIncome>500000</montlyIncome>
+        <montlyIncome>400000</montlyIncome>
+        <montlyIncome>300000</montlyIncome>
+    </montlyIncomes>
+</cinemaObjectForXMLTask>

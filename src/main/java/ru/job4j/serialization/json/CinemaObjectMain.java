@@ -14,7 +14,7 @@ public class CinemaObjectMain {
         String stringFromGson = gson.toJson(cinemaObject);
         System.out.println("GSONCHIK:" + stringFromGson);
 
-        /* Создаем объект CinemaObject из json-строки: */
+        /* Создаем объект CinemaObjectForXMLTask из json-строки: */
         final CinemaObject cinemaObjectFromJson = gson.fromJson(stringFromGson, CinemaObject.class);
 
         System.out.println("JAVA OBJ Fron JSON:" + cinemaObjectFromJson);

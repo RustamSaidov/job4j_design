@@ -19,7 +19,7 @@ public class CinemaObject {
 
     @Override
     public String toString() {
-        return "CinemaObject{"
+        return "CinemaObjectForXMLTask{"
                 + "isRealised=" + isRealised
                 + ", yearOfRealise=" + yearOfRealise
                 + ", nameOfCinema='" + nameOfCinema + '\''
