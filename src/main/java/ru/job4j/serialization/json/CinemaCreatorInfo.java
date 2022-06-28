@@ -13,9 +13,25 @@ public class CinemaCreatorInfo {
         this.producerSurname = producerSurname;
     }
 
+    public String getDirectorName() {
+        return directorName;
+    }
+
+    public String getDirectorSurname() {
+        return directorSurname;
+    }
+
+    public String getProducerName() {
+        return producerName;
+    }
+
+    public String getProducerSurname() {
+        return producerSurname;
+    }
+
     @Override
     public String toString() {
-        return "CinemaCreatorInfoForXMLTask{"
+        return "CinemaCreatorInfo{"
                 + "directorName='" + directorName + '\''
                 + ", directorSurname='" + directorSurname + '\''
                 + ", producerName='" + producerName + '\''

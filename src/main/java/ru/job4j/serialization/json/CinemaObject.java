@@ -17,6 +17,26 @@ public class CinemaObject {
         this.montlyIncome = montlyIncome;
     }
 
+    public boolean isRealised() {
+        return isRealised;
+    }
+
+    public short getYearOfRealise() {
+        return yearOfRealise;
+    }
+
+    public String getNameOfCinema() {
+        return nameOfCinema;
+    }
+
+    public CinemaCreatorInfo getCinemaCreatorInfo() {
+        return cinemaCreatorInfo;
+    }
+
+    public int[] getMontlyIncome() {
+        return montlyIncome;
+    }
+
     @Override
     public String toString() {
         return "CinemaObjectForXMLTask{"
