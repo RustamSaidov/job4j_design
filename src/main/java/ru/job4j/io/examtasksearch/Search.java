@@ -19,16 +19,16 @@ public class Search {
     static void argumentsValidation(String[] args) {
         argumentTransferValidation(args);
         folderAdressValidatoin(args);
-        fileExtentionValidation(args);
+        //fileExtentionValidation(args);
     }
 
     /*Проверка того, что в аргументе было передано нужное расширение файла*/
-    private static void fileExtentionValidation(String[] args) {
-        if (!args[1].startsWith(".")) {
-            throw new IllegalArgumentException("Wrong file extension for search. Change the file extension search "
-                    + "argument according to the search conditions.");
-        }
-    }
+//    private static void fileExtentionValidation(String[] args) {
+//        if (!args[1].startsWith(".")) {
+//            throw new IllegalArgumentException("Wrong file extension for search. Change the file extension search "
+//                    + "argument according to the search conditions.");
+//        }
+//    }
 
     /*Проверка того, что в аргументе был передан нужный адрес папки для проверки файлов*/
     private static void folderAdressValidatoin(String[] args) {

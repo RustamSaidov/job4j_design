@@ -1,7 +1,5 @@
 package ru.job4j.io.examtasksearch;
 
-import ru.job4j.io.Zip;
-
 import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -38,44 +36,46 @@ public class ExamTaskMain {
         List<Path> listpath = new ArrayList<>();
 
         //Фильтр по полному совпадению имени:
-        if(names.getValues().get("t").equals("name")){
-        listpath = searchobj.search(start, p -> p.toFile().getName().equals(names.getValues().get("n")));
+        if (names.getValues().get("t").equals("name")) {
+            listpath = searchobj.search(start, p -> p.toFile().getName().equals(names.getValues().get("n")));
         }
 
         //Фильтр по маске:
-        if(names.getValues().get("t").equals("mask")){
-        PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:"+names.getValues().get("e"));
-        listpath = searchobj.search(start, p -> matcher.matches(p.toFile().toPath()));
+        if (names.getValues().get("t").equals("mask")) {
+            MaskPredicate<Path> filter = new MaskPredicate<>();
+            listpath = searchobj.search(start, filter);
+            System.out.println("mask variant");
         }
+
         //Фильтр по регулярному выражению:
-        if(names.getValues().get("t").equals("regex")){
-
-        listpath = searchobj.search(start, p -> !p.toFile().getName().matches(names.getValues().get("e")));
+        if (names.getValues().get("t").equals("regex")) {
+            listpath = searchobj.search(start, p -> !p.toFile().getName().matches(names.getValues().get("n")));
         }
-
-
 
         //List<Path> listpath = searchobj.search(start, p -> !p.toFile().getName().endsWith(names.getValues().get("e")));
 //        Zip zip = new Zip();
 //        zip.packFiles(listpath, new File(names.getValues().get("o")));
+        System.out.println(listpath);
+        List<Path> listp = new ArrayList<>();
+        listp.add(Path.of("some.txt"));
+        listp.add(Path.of("some2.txt"));
         save(listpath, "listOfThePaths.txt");
+        save(listp, "listOfTheP.txt");
     }
 
-    public static void matches(Path path, String glob){
-        PathMatcher matcher = FileSystems.getDefault().getPathMatcher(glob);
-        System.out.println(matcher.matches(path));
-    }
-
-    public static void save(List<Path> log, String file) {
+    public static void save(List<Path> listpath, String file) {
         try (PrintWriter out = new PrintWriter(
                 new BufferedOutputStream(
                         new FileOutputStream(file)
                 ))) {
-            for (int i = 0; i < log.size(); i++) {
-                out.println(log.get(i));
+            for (int i = 0; i < listpath.size(); i++) {
+                out.println(listpath.get(i));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 }
+

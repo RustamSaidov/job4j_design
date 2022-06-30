@@ -32,7 +32,9 @@ public class Test {
         while (iterator1.hasNext()){
             Path path = iterator1.next();
             System.out.println("FFF:"+path);
-            matches(path, "glob:"+mask);
+            String str = "glob:"+mask;
+            System.out.println(str);
+            matches(path, str);
 
         }
 //        System.out.println("-------------");
