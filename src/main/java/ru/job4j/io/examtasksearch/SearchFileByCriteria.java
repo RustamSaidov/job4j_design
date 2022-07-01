@@ -16,18 +16,18 @@ public class SearchFileByCriteria {
         Path start = Path.of(names.getValues().get("d"));
         List<Path> listpath = new ArrayList<>();
 
-        //Фильтр по полному совпадению имени:
+        /*Фильтр по полному совпадению имени:*/
         if (names.getValues().get("t").equals("name")) {
             listpath = searchobj.search(start, p -> p.toFile().getName().equals(names.getValues().get("n")));
         }
 
-        //Фильтр по маске:
+        /*Фильтр по маске:*/
         if (names.getValues().get("t").equals("mask")) {
             MaskPredicate<Path> filter = new MaskPredicate<>();
             listpath = searchobj.search(start, filter);
         }
 
-        //Фильтр по регулярному выражению:
+        /*Фильтр по регулярному выражению:*/
         if (names.getValues().get("t").equals("regex")) {
             RegexPredicate<Path> filter = new RegexPredicate<>();
             listpath = searchobj.search(start, filter);
