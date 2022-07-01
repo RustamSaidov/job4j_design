@@ -15,7 +15,6 @@ public class ArgsName {
     }
 
     private void parse(String[] args) {
-
         for (int i = 0; i < args.length; i++) {
             argumentValidation(args[i]);
             String substr1 = args[i].substring(1, args[i].indexOf('='));
@@ -46,6 +45,10 @@ public class ArgsName {
         }
         ArgsName names = new ArgsName();
         names.parse(args);
+        /*Проверка того, что были переданы условия поиска (по имени, по маске или по регулярному выражению)*/
+        if (!names.getValues().get("t").equals("name") && !names.getValues().get("t").equals("mask") && !names.getValues().get("t").equals("regex")) {
+            throw new IllegalArgumentException("The search type is not specified correctly (by name, by mask, by regex). Specify the search type after -t=");
+        }
         return names;
     }
 
