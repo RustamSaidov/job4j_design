@@ -1,4 +1,4 @@
-create table rank(
+ï»¿create table rank(
     id serial primary key,
     rankname varchar(255)
 );
@@ -21,11 +21,11 @@ insert into serviceman(name, surname) values ('Tom', 'Soyer');
 select sm.name, sm.surname, r.rankname 
 from serviceman as sm inner join rank as r on sm.rank_id = r.id;
 
-select sm.name as Èìÿ, sm.surname as Ôàìèëèÿ, r.rankname as Çâàíèå
+select sm.name as Ğ˜Ğ¼Ñ, sm.surname as Ğ¤Ğ°Ğ¼Ğ¸Ğ»Ğ¸Ñ, r.rankname as Ğ—Ğ²Ğ°Ğ½Ğ¸Ğµ
 from serviceman as sm inner join rank as r on sm.rank_id = r.id;
 
 
-select sm.name as Èìÿ, sm.surname as Ôàìèëèÿ, r.rankname as Çâàíèå
+select sm.name as Ğ˜Ğ¼Ñ, sm.surname as Ğ¤Ğ°Ğ¼Ğ¸Ğ»Ğ¸Ñ, r.rankname as Ğ—Ğ²Ğ°Ğ½Ğ¸Ğµ
 from serviceman as sm inner join rank as r on sm.rank_id = r.id
 where sm.name like 'John%' OR sm.surname like 'John%';
 ;
