@@ -27,7 +27,7 @@ public class ImportDB {
             for (String line = rd.readLine(); line != null; line = rd.readLine()) {
                 if (line.isEmpty()
                         || line.indexOf(";") == line.lastIndexOf(";")
-                        || line.equals(";;")
+                        || ";;".equals(line)
                         || StringUtils.countMatches(line, ";") > 2
                 ) {
                     throw new IllegalArgumentException();
