@@ -38,8 +38,7 @@ public class TableEditor implements AutoCloseable {
         String sql = String.format(
                 "create table if not exists %s(%s, %s);",
                 tableName,
-                "id serial primary key",
-                "name text"
+                "id serial primary key"
         );
         executeQuery(tableName, sql, connection);
         System.out.println(getTableScheme(connection, tableName));
@@ -58,14 +57,8 @@ public class TableEditor implements AutoCloseable {
 
     public void renameColumn(String tableName, String columnName, String newColumnName) throws Exception {
         String sql = String.format(
-                "DO $$\n"
-                        + "BEGIN\n"
-                        + "  IF EXISTS(SELECT * FROM information_schema.columns\n"
-                        + "    WHERE table_name='" + tableName + "' and column_name='" + columnName + "')\n"
-                        + "  THEN\n"
-                        + "      ALTER TABLE %s RENAME COLUMN %s TO %s;\n"
-                        + "  END IF;\n"
-                        + "END $$;",
+                        "ALTER TABLE %s RENAME COLUMN %s TO %s;",
+
                 tableName,
                 columnName,
                 newColumnName
