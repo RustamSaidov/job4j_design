@@ -51,8 +51,7 @@ inner join company on person.company_id = company.id
 GROUP By company.name
 HAVING COUNT(*) = 
 (SELECT COUNT(*) FROM public.person
-inner join company on person.company_id = company.id
-GROUP By company.name
+GROUP By company_id
 ORDER  BY count(*) DESC
 LIMIT 1
 );
