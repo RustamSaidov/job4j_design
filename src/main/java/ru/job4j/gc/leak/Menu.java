@@ -5,22 +5,22 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public final int ADD_POST = 1;
-    public final int ADD_MANY_POST = 2;
-    public final int SHOW_ALL_POSTS = 3;
-    public final int DELETE_POST = 4;
+    public static final int ADD_POST = 1;
+    public static final int ADD_MANY_POST = 2;
+    public static final int SHOW_ALL_POSTS = 3;
+    public static final int DELETE_POST = 4;
 
-    public final String SELECT = "Выберите меню";
-    public final String COUNT = "Выберите количество создаваемых постов";
-    public final String TEXT_OF_POST = "Введите текст";
-    public final String EXIT = "Конец работы";
+    public static final String SELECT = "Выберите меню";
+    public static final String COUNT = "Выберите количество создаваемых постов";
+    public static final String TEXT_OF_POST = "Введите текст";
+    public static final String EXIT = "Конец работы";
 
-    public final String MENU = """
-                Введите 1 для создание поста.
-                Введите 2, чтобы создать определенное количество постов.
-                Введите 3, чтобы показать все посты.
-                Введите 4, чтобы удалить все посты.
-                Введите любое другое число для выхода.
+    public static final String MENU = """
+            Введите 1 для создание поста.
+            Введите 2, чтобы создать определенное количество постов.
+            Введите 3, чтобы показать все посты.
+            Введите 4, чтобы удалить все посты.
+            Введите любое другое число для выхода.
             """;
 
     public static void main(String[] args) {
