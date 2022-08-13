@@ -1,45 +1,73 @@
 package ru.job4j.kiss;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
-public class MaxMin {
-    public <T> T max(List<T> value, Comparator<T> comparator) {
-        return null;
+public class MaxMin<T> {
+    public String max(List<String> value, Comparator<String> comparator) {
+        Predicate<Integer> predicate = x -> x > 0;
+        return returnValueByPredicate(value, comparator, predicate);
     }
 
-    public <T> T min(List<T> value, Comparator<T> comparator) {
-        return null;
+    public String min(List<String> value, Comparator<String> comparator) {
+        Predicate<Integer> predicate = x -> x < 0;
+        return returnValueByPredicate(value, comparator, predicate);
     }
 
 
-/*    public static <T> void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        list.add(777);
-        list.add(555);
-        list.add(222);
-        list.add(333);
-        list.add(444);
+    public static <T> void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("BBB");
+        list.add("DDD");
+        list.add("AAA");
+        list.add("DDD");
+        list.add("FFF");
+        list.add("MMM");
+        list.add("EEE");
+        list.add("CCC");
 
-        Comparator<T> comparator = new Comparator<T>() {
+        Comparator comparator = new MyComparator();
 
-            @Override
-            public int compare(T o1, T o2) {
-                if(o1> o2)
-                    return 1;
-                else if(o1< o1)
-                    return -1;
-                else
-                    return 0;
-            }
-            }
-
-        }
         MaxMin maxMin = new MaxMin();
-        maxMin.
+        System.out.println("max" + maxMin.max(list, comparator));
+        System.out.println("min" + maxMin.min(list, comparator));
+
+
     }
 
- */
+    private String returnValueByPredicate(List<String> list, Comparator<String> comparator, Predicate<Integer> predicate) {
+        String min = null;
+        String max = null;
+        String result;
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (min == null && max == null) {
+                min = list.get(i);
+                max = list.get(i);
+            }
+            if (comparator.compare(list.get(i), list.get(i + 1)) > 0) {
+                if (comparator.compare(list.get(i), max) > 0) {
+                    max = list.get(i);
+                }
+                if (comparator.compare(list.get(i + 1), min) < 0) {
+                    min = list.get(i + 1);
+                }
+            } else if (comparator.compare(list.get(i), list.get(i + 1)) < 0) {
+                if (comparator.compare(list.get(i), min) < 0) {
+                    min = list.get(i);
+                }
+                if (comparator.compare(list.get(i + 1), max) > 0) {
+                    max = list.get(i + 1);
+                }
+            }
+        }
+        if (predicate.test(comparator.compare(min, max))) {
+            result = min;
+        } else {
+            result = max;
+        }
+        return result;
+    }
 }
+
