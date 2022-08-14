@@ -3,17 +3,18 @@ package ru.job4j.kiss;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public class MaxMin<T> {
     public T max(List<T> value, Comparator<T> comparator) {
-        Predicate<Integer> predicate = x -> x > 0;
-        return returnValueByPredicate(value, comparator, predicate);
+        BiPredicate<T, T> predicate = (x, y) -> comparator.compare(x, y) > 0;
+        return returnValueByPredicate(value, predicate);
     }
 
     public T min(List<T> value, Comparator<T> comparator) {
-        Predicate<Integer> predicate = x -> x < 0;
-        return returnValueByPredicate(value, comparator, predicate);
+        BiPredicate<T, T> predicate = (x, y) -> comparator.compare(x, y) < 0;
+        return returnValueByPredicate(value, predicate);
     }
 
     public static void main(String[] args) {
@@ -34,12 +35,12 @@ public class MaxMin<T> {
         System.out.println("min" + maxMin.min(list, comparator));
     }
 
-    private T returnValueByPredicate(List<T> list, Comparator<T> comparator, Predicate<Integer> predicate) {
+    private T returnValueByPredicate(List<T> list, BiPredicate<T, T> predicate) {
         T min = null;
         T max = null;
         T result;
         if (list.isEmpty()) {
-            result = null;
+            return null;
         } else {
             if (list.size() == 1) {
                 min = list.get(0);
@@ -50,24 +51,24 @@ public class MaxMin<T> {
                         min = list.get(i);
                         max = list.get(i);
                     }
-                    if (comparator.compare(list.get(i), list.get(i + 1)) > 0) {
-                        if (comparator.compare(list.get(i), max) > 0) {
+                    if (predicate.test(list.get(i), list.get(i + 1))) {
+                        if (predicate.test(list.get(i), max)) {
                             max = list.get(i);
                         }
-                        if (comparator.compare(list.get(i + 1), min) < 0) {
+                        if (!predicate.test(list.get(i + 1), min)) {
                             min = list.get(i + 1);
                         }
-                    } else if (comparator.compare(list.get(i), list.get(i + 1)) < 0) {
-                        if (comparator.compare(list.get(i), min) < 0) {
+                    } else if (!predicate.test(list.get(i), list.get(i + 1))) {
+                        if (!predicate.test(list.get(i), min)) {
                             min = list.get(i);
                         }
-                        if (comparator.compare(list.get(i + 1), max) > 0) {
+                        if (predicate.test(list.get(i + 1), max)) {
                             max = list.get(i + 1);
                         }
                     }
                 }
             }
-            if (predicate.test(comparator.compare(min, max))) {
+            if (predicate.test(min, max)) {
                 result = min;
             } else {
                 result = max;
@@ -76,4 +77,3 @@ public class MaxMin<T> {
         return result;
     }
 }
-
