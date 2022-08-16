@@ -68,4 +68,13 @@ public class MaxMinTest {
         assertThat(maxMin.max(list, comparator), is("DDD"));
         assertThat(maxMin.min(list, comparator), is("DDD"));
     }
+
+    @Test
+    public void whenListisEmpty() {
+        List<String> list = new ArrayList<>();
+
+        Comparator<String> comparator = new StringComparator();
+        MaxMin<String> maxMin = new MaxMin<String>();
+        assertNull(maxMin.max(list, comparator));
+    }
 }
