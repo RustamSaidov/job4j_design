@@ -22,6 +22,18 @@ public class CinemaTest {
     }
 
     @Test
+    public void whenTryToBuyOccupiedPlace() {
+        Account account1 = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        Ticket ticket = cinema.buy(account1, 1, 1, date);
+        Account account2 = new AccountCinema();
+        assertThrows(IllegalArgumentException.class, () -> {
+            cinema.buy(account2, 1, 1, date);
+        });
+    }
+
+    @Test
     public void whenDoesNotBuy() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
