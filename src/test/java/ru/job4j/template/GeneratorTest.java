@@ -1,4 +1,4 @@
-/*package ru.job4j.template;
+package ru.job4j.template;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +65,6 @@ public class GeneratorTest {
     }
 }
 
- */
 
 
 
