@@ -13,7 +13,6 @@ import java.util.List;
 @Disabled
 public class CinemaTest {
 
-    @Ignore
     @Test
     public void whenBuy() {
         Account account = new AccountCinema();
@@ -24,7 +23,6 @@ public class CinemaTest {
     }
 
     @Test
-    @Ignore
     public void whenTryToBuyOccupiedPlace() {
         Account account1 = new AccountCinema();
         Cinema cinema = new Cinema3D();
@@ -37,7 +35,6 @@ public class CinemaTest {
     }
 
     @Test
-    @Ignore
     public void whenDoesNotBuy() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
@@ -47,7 +44,6 @@ public class CinemaTest {
     }
 
     @Test
-    @Ignore
     public void whenFind() {
         Cinema cinema = new Cinema3D();
         cinema.add(new Session3D());
@@ -56,7 +52,6 @@ public class CinemaTest {
     }
 
     @Test
-    @Ignore
     public void whenDoesNotFind() {
         Cinema cinema = new Cinema3D();
         cinema.add(new Session3D());
@@ -65,7 +60,6 @@ public class CinemaTest {
     }
 
     @Test()
-    @Ignore
     public void whenInvalidPlace() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
@@ -76,7 +70,6 @@ public class CinemaTest {
     }
 
     @Test()
-    @Ignore
     public void whenInvalidAccount() {
         Account account = new AccountCinemaWorker();
         Cinema cinema = new Cinema3D();
@@ -87,7 +80,6 @@ public class CinemaTest {
     }
 
     @Test()
-    @Ignore
     public void whenInvalidDate() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
