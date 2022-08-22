@@ -16,11 +16,7 @@ public class SRPViolationExample {
 
     public boolean saveInList(String str) {
         list.add(str);
-        if (list.contains(str)) {
-            return true;
-        } else {
-            return false;
-        }
+        return list.contains(str);
     }
 
     public SRPViolationExample(List list) {
