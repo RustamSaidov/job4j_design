@@ -10,6 +10,10 @@ public class SRPViolationExample {
 
     private List list;
 
+    public SRPViolationExample(List list) {
+        this.list = list;
+    }
+
     public String getSomeString() {
         return RandomStringUtils.randomAlphabetic(10);
     }
@@ -17,10 +21,6 @@ public class SRPViolationExample {
     public boolean saveInList(String str) {
         list.add(str);
         return list.contains(str);
-    }
-
-    public SRPViolationExample(List list) {
-        this.list = list;
     }
 }
 /*
