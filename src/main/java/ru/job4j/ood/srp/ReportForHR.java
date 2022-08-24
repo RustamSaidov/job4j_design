@@ -23,11 +23,8 @@ public class ReportForHR implements Report {
         text.append("Name; Salary;")
                 .append(System.lineSeparator());
         List<Employee> employees = store.findBy(filter);
-        Collections.sort(employees, new Comparator<Employee>() {
-            public int compare(Employee o1, Employee o2) {
-                return o1.toString().compareTo(o2.toString());
-            }
-        });
+        employees.sort(Comparator.comparing(Employee::getSalary).reversed());
+
         for (Employee employee : employees) {
             text.append(employee.getName()).append(";")
                     .append(employee.getSalary()).append(";")

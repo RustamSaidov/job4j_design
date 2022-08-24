@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 public class ReportForAccountingDepartment implements Report {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
 
+    public static final double YEAR_SALARY_COEFF = 12 / 0.87;
+
     private Store store;
 
     public ReportForAccountingDepartment(Store store) {
@@ -21,7 +23,7 @@ public class ReportForAccountingDepartment implements Report {
             text.append(employee.getName()).append(";")
                     .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
                     .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(String.format("%.2f", employee.getSalary() * 12 / 0.87)).append(";")
+                    .append(String.format("%.2f", employee.getSalary() * YEAR_SALARY_COEFF)).append(";")
                     .append(System.lineSeparator());
         }
         return text.toString();
