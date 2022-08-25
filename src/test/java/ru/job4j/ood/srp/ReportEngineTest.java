@@ -74,7 +74,7 @@ public class ReportEngineTest {
                 .append(worker.getName()).append(";")
                 .append(DATE_FORMAT.format(worker.getHired().getTime())).append(";")
                 .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
-                .append(String.format("%.2f", worker.getSalary() * 12 / 0.87)).append(";")
+                .append(String.format("%.2f", worker.getSalary() * ReportForAccountingDepartment.YEAR_SALARY_COEFF)).append(";")
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
