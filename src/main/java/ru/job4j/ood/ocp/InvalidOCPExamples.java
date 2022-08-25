@@ -47,4 +47,17 @@ public class InvalidOCPExamples {
             return i * j;
         }
     }
+
+    /*Пример 4. Поля реализованы, вместо того чтобы быть представленными абстракцией. Возвращаемое тип так же указан: */
+    private static class MultiplySomething {
+        private double coeff = 0.5;
+
+        public MultiplySomething(int coeff) {
+            this.coeff = coeff;
+        }
+
+        public double calculateSpeedOfFlight(int i, int j) {
+            return i * j * coeff;
+        }
+    }
 }
