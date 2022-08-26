@@ -15,27 +15,53 @@ public class ReportXML implements Report {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
 
     private Store store;
+    JAXBContext context;
+    Marshaller marshaller;
 
     public ReportXML(Store store) {
         this.store = store;
+        try {
+            this.context = JAXBContext.newInstance(Employees.class);
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            this.marshaller = context.createMarshaller();
+        } catch (JAXBException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public String generate(Predicate<Employee> filter) throws JAXBException {
+    public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
         var employees = store.findBy(filter);
 
-            JAXBContext context = JAXBContext.newInstance(Employee.class);
-            Marshaller marshaller = context.createMarshaller();
+        try {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            String xml = "";
-            try (StringWriter writer = new StringWriter()) {
-                marshaller.marshal(new Employee(employees), writer);
-                xml = writer.getBuffer().toString();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            text.append(xml);
+        } catch (PropertyException e) {
+            throw new RuntimeException(e);
+        }
+        String xml = "";
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(new Employees(employees), writer);
+            xml = writer.getBuffer().toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        text.append(xml);
+
+//            JAXBContext context = JAXBContext.newInstance(Employees.class);
+//            Marshaller marshaller = context.createMarshaller();
+//            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+//            String xml = "";
+//            try (StringWriter writer = new StringWriter()) {
+//                marshaller.marshal(new Employees(employees), writer);
+//                xml = writer.getBuffer().toString();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            text.append(xml);
 
         return text.toString();
     }

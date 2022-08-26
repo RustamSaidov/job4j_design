@@ -8,11 +8,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-@XmlRootElement(name = "employees")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Employee {
 
-    private List<Employee> employees;
+public class Employee {
     private String name;
     private Calendar hired;
     private Calendar fired;
@@ -26,11 +23,6 @@ public class Employee {
         this.hired = hired;
         this.fired = fired;
         this.salary = salary;
-    }
-
-
-    public Employee(List<Employee> employees) {
-        this.employees = employees;
     }
 
     public String getName() {

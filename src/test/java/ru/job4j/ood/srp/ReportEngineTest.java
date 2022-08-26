@@ -6,15 +6,17 @@ import org.junit.jupiter.api.Test;
 import javax.xml.bind.JAXBException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.StringJoiner;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 import static ru.job4j.ood.srp.ReportEngine.DATE_FORMAT;
 
 public class ReportEngineTest {
     public static final SimpleDateFormat DATE_FORMAT_FOR_XML = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
     @Test
-    public void whenOldGenerated() throws JAXBException {
+    public void whenOldGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -32,7 +34,7 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenNewProgrammistReportGenerated() throws JAXBException {
+    public void whenNewProgrammistReportGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -66,7 +68,7 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenNewAccountingDepartmentReportGenerated() throws JAXBException {
+    public void whenNewAccountingDepartmentReportGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -84,7 +86,7 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenNewHRReportGenerated() throws JAXBException {
+    public void whenNewHRReportGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -103,9 +105,9 @@ public class ReportEngineTest {
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
-/*ТУТ НЕ ЗНАЮ ЧТО ДЕЛАТЬ. ПИШЕТ, ЧТО ОШИБКА ТОЛЬКО В LINE SEPARATOR. НО КАК Я ЕГО НЕ МЕНЯЛ, ВКЛЮЧАЯ НА ВЕСЬ ПРОЕКТ, ОШИБКА ТЕСТА НЕ ИСЧЕЗАЕТ
+
     @Test
-    public void whenNewXLMReportGenerated() throws JAXBException {
+    public void whenNewXLMReportGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -113,29 +115,29 @@ public class ReportEngineTest {
         store.add(worker);
         store.add(worker2);
         Report engine = new ReportXML(store);
-        StringBuilder expect = new StringBuilder()
-                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>").append(System.lineSeparator())
-                .append("<employees>").append(System.lineSeparator())
-                .append("    <employees>").append(System.lineSeparator())
-                .append("        <name>" + worker.getName() + "</name>").append(System.lineSeparator())
-                .append("        <hired>" + DATE_FORMAT_FOR_XML.format(worker.getHired().getTime()) + "</hired>").append(System.lineSeparator())
-                .append("        <fired>" + DATE_FORMAT_FOR_XML.format(worker.getHired().getTime()) + "</fired>").append(System.lineSeparator())
-                .append("        <salary>" + worker.getSalary() + "</salary>").append(System.lineSeparator())
-                .append("    </employees>").append(System.lineSeparator())
-                .append("    <employees>").append(System.lineSeparator())
-                .append("        <name>" + worker2.getName() + "</name>").append(System.lineSeparator())
-                .append("        <hired>" + DATE_FORMAT_FOR_XML.format(worker2.getHired().getTime()) + "</hired>").append(System.lineSeparator())
-                .append("        <fired>" + DATE_FORMAT_FOR_XML.format(worker2.getFired().getTime()) + "</fired>").append(System.lineSeparator())
-                .append("        <salary>" + worker2.getSalary() + "</salary>").append(System.lineSeparator())
-                .append("    </employees>").append(System.lineSeparator())
-                .append("    <salary>0.0</salary>").append(System.lineSeparator())
-                .append("</employees>").append(System.lineSeparator());
-        assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
+        String result = engine.generate(employee -> true);
+        StringJoiner expect = new StringJoiner("\n");
+        expect.add("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
+                .add("<employees>")
+                .add("    <employees>")
+                .add(String.format("        <fired>%s</fired>", DATE_FORMAT_FOR_XML.format(worker.getFired().getTime())))
+                .add(String.format("        <hired>%s</hired>", DATE_FORMAT_FOR_XML.format(worker.getHired().getTime())))
+                .add(String.format("        <name>%s</name>", worker.getName()))
+                .add(String.format("        <salary>%s</salary>", worker.getSalary()))
+                .add("    </employees>")
+                .add("    <employees>")
+                .add(String.format("        <fired>%s</fired>", DATE_FORMAT_FOR_XML.format(worker2.getFired().getTime())))
+                .add(String.format("        <hired>%s</hired>", DATE_FORMAT_FOR_XML.format(worker2.getHired().getTime())))
+                .add(String.format("        <name>%s</name>", worker2.getName()))
+                .add(String.format("        <salary>%s</salary>", worker2.getSalary()))
+                .add("    </employees>")
+                .add("</employees>\n");
+        assertEquals(result, expect.toString());
     }
-    */
+
 
     @Test
-    public void whenNewJSONReportGenerated() throws JAXBException {
+    public void whenNewJSONReportGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -144,12 +146,11 @@ public class ReportEngineTest {
         store.add(worker2);
         Report engine = new ReportJSON(store);
         StringBuilder expect = new StringBuilder()
-                .append("[").append(System.lineSeparator())
+                .append("[")
                 .append(new GsonBuilder().create().toJson(worker).toString())
-                .append(",").append(System.lineSeparator())
+                .append(",")
                 .append(new GsonBuilder().create().toJson(worker2).toString())
-                .append(System.lineSeparator())
-                .append("]").append(System.lineSeparator());
+                .append("]");
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
 }
