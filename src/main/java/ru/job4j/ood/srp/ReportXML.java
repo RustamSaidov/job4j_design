@@ -51,18 +51,6 @@ public class ReportXML implements Report {
         }
         text.append(xml);
 
-//            JAXBContext context = JAXBContext.newInstance(Employees.class);
-//            Marshaller marshaller = context.createMarshaller();
-//            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-//            String xml = "";
-//            try (StringWriter writer = new StringWriter()) {
-//                marshaller.marshal(new Employees(employees), writer);
-//                xml = writer.getBuffer().toString();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            text.append(xml);
-
         return text.toString();
     }
 }
