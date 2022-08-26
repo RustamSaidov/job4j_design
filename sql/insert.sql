@@ -64,16 +64,16 @@ INSERT INTO public.item(
 
 INSERT INTO public.comments(
             comment, item_id)
-    VALUES ('Срочно нахой! Это АДмин!', 1);
+    VALUES ('пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ! пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ!', 1);
 
 
 INSERT INTO public.comments(
             comment, item_id)
-    VALUES ('Такую же, но с перламутровыми пуговицами', 2);
+    VALUES ('пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ, пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ', 2);
 
 INSERT INTO public.comments(
             comment, item_id)
-    VALUES ('Такую же, но без крыльев', 3);
+    VALUES ('пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ', 3);
 
 INSERT INTO public.attachs(
             attach_file, item_id)
