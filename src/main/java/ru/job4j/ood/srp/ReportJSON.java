@@ -10,7 +10,7 @@ public class ReportJSON implements Report {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
 
     private Store store;
-    Gson gson;
+    private Gson gson;
 
     public ReportJSON(Store store) {
         this.store = store;
