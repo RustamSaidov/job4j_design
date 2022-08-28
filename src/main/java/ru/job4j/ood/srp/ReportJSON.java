@@ -1,5 +1,6 @@
 package ru.job4j.ood.srp;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.text.SimpleDateFormat;
@@ -9,11 +10,11 @@ public class ReportJSON implements Report {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
 
     private Store store;
-    GsonBuilder gson;
+    Gson gson;
 
     public ReportJSON(Store store) {
         this.store = store;
-        this.gson = new GsonBuilder();
+        this.gson = new GsonBuilder().create();
     }
 
     @Override
@@ -21,7 +22,7 @@ public class ReportJSON implements Report {
         StringBuilder text = new StringBuilder();
 
         var employees = store.findBy(filter);
-        text.append(gson.create().toJson(employees));
+        text.append(gson.toJson(employees));
 
         return text.toString();
     }

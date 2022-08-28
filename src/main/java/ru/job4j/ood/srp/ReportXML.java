@@ -15,8 +15,8 @@ public class ReportXML implements Report {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
 
     private Store store;
-    JAXBContext context;
-    Marshaller marshaller;
+    private JAXBContext context;
+    private Marshaller marshaller;
 
     public ReportXML(Store store) {
         this.store = store;

@@ -146,11 +146,34 @@ public class ReportEngineTest {
         store.add(worker2);
         Report engine = new ReportJSON(store);
         StringBuilder expect = new StringBuilder()
-                .append("[")
-                .append(new GsonBuilder().create().toJson(worker).toString())
-                .append(",")
-                .append(new GsonBuilder().create().toJson(worker2).toString())
-                .append("]");
+                .append("[{\"name\":\"").append(worker.getName()).append("\",\"hired\":{\"year\":").append(worker.getHired().get(Calendar.YEAR))
+                .append(",\"month\":").append(worker.getHired().get(Calendar.MONTH))
+                .append(",\"dayOfMonth\":").append(worker.getHired().get(Calendar.DAY_OF_MONTH))
+                .append(",\"hourOfDay\":").append(worker.getHired().get(Calendar.HOUR_OF_DAY))
+                .append(",\"minute\":").append(worker.getHired().get(Calendar.MINUTE))
+                .append(",\"second\":").append(worker.getHired().get(Calendar.SECOND))
+                .append("},\"fired\":{\"year\":").append(worker.getFired().get(Calendar.YEAR))
+                .append(",\"month\":").append(worker.getFired().get(Calendar.MONTH))
+                .append(",\"dayOfMonth\":").append(worker.getFired().get(Calendar.DAY_OF_MONTH))
+                .append(",\"hourOfDay\":").append(worker.getFired().get(Calendar.HOUR_OF_DAY))
+                .append(",\"minute\":").append(worker.getFired().get(Calendar.MINUTE))
+                .append(",\"second\":").append(worker.getFired().get(Calendar.SECOND))
+                .append("},\"salary\":").append(worker.getSalary()).append("},")
+                .append("{\"name\":\"").append(worker2.getName()).append("\",\"hired\":{\"year\":").append(worker2.getHired().get(Calendar.YEAR))
+                .append(",\"month\":").append(worker2.getHired().get(Calendar.MONTH))
+                .append(",\"dayOfMonth\":").append(worker2.getHired().get(Calendar.DAY_OF_MONTH))
+                .append(",\"hourOfDay\":").append(worker2.getHired().get(Calendar.HOUR_OF_DAY))
+                .append(",\"minute\":").append(worker2.getHired().get(Calendar.MINUTE))
+                .append(",\"second\":").append(worker2.getHired().get(Calendar.SECOND))
+                .append("},\"fired\":{\"year\":").append(worker2.getFired().get(Calendar.YEAR))
+                .append(",\"month\":").append(worker2.getFired().get(Calendar.MONTH))
+                .append(",\"dayOfMonth\":").append(worker2.getFired().get(Calendar.DAY_OF_MONTH))
+                .append(",\"hourOfDay\":").append(worker2.getFired().get(Calendar.HOUR_OF_DAY))
+                .append(",\"minute\":").append(worker2.getFired().get(Calendar.MINUTE))
+                .append(",\"second\":").append(worker2.getFired().get(Calendar.SECOND))
+                .append("},\"salary\":").append(worker2.getSalary()).append("}]");
+
+
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
 }
