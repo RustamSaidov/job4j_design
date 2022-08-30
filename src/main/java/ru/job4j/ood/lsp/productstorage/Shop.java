@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shop implements Store {
-    private static Shop INSTANCE;
+    private static Shop instance;
     private static List<Food> foodList;
 
     private Shop() {
     }
 
     public static Shop getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Shop();
+        if (instance == null) {
+            instance = new Shop();
             foodList = new ArrayList<>();
         }
-        return INSTANCE;
+        return instance;
     }
 
 

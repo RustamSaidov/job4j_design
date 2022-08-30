@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Trash implements Store {
     private static Trash instance;
-    private static List<Food> FOOD_LIST;
+    private static List<Food> foodList;
 
     private Trash() {
     }
@@ -13,20 +13,20 @@ public class Trash implements Store {
     public static Trash getInstance() {
         if (instance == null) {
             instance = new Trash();
-            FOOD_LIST = new ArrayList<>();
+            foodList = new ArrayList<>();
         }
         return instance;
     }
 
 
     public static List<Food> getFoodList() {
-        return FOOD_LIST;
+        return foodList;
     }
 
     @Override
     public void checkToAdd(Food food, double foodSheltLifePers) {
         if (foodSheltLifePers < 0) {
-            FOOD_LIST.add(food);
+            foodList.add(food);
         }
     }
 }
