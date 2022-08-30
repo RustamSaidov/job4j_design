@@ -1,9 +1,9 @@
-package ru.job4j.ood.lsp.productStorage;
+package ru.job4j.ood.lsp.productstorage;
 
 import java.util.List;
 
 public interface Store {
-    List<Food> list = null;
-    
+    List<Food> FOOD_LIST = null;
+
     public void checkToAdd(Food food, double foodSheltLifePers);
 }

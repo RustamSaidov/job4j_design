@@ -1,6 +1,4 @@
-package ru.job4j.ood.lsp.productStorage;
-
-import ru.job4j.gc.prof.Data;
+package ru.job4j.ood.lsp.productstorage;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,18 +9,15 @@ import java.util.List;
 public class ControlQuality {
     private Date currentDate = new Date();
 
-    private static double getShelfLifePersentage(Date futureDay, Date day) {
+    public static double getShelfLifePersentage(Date futureDay, Date day) {
         int shelfLife;
         int remainingShelfLife;
         double shelfLifePercentage;
 
 
         shelfLife = getDateDifferenceInDays(futureDay, day);
-        System.out.println("11111 " + shelfLife);
         remainingShelfLife = getDateDifferenceInDays(futureDay, new Date());
-        System.out.println("22222 " + remainingShelfLife);
         shelfLifePercentage = (double) remainingShelfLife / shelfLife;
-        System.out.println("shelfLifePercentage:" + shelfLifePercentage);
         return shelfLifePercentage;
     }
 
@@ -51,8 +46,8 @@ public class ControlQuality {
 
     public void distribute(Food food, List<Store> stores) {
         double foodSheltLifePers = getShelfLifePersentage(food.getExpiryDate(), food.getCreateDate());
-        for(int i=0; i<stores.size(); i++){
-            stores.get(i).checkToAdd(food,foodSheltLifePers);
+        for (int i = 0; i < stores.size(); i++) {
+            stores.get(i).checkToAdd(food, foodSheltLifePers);
         }
     }
 }

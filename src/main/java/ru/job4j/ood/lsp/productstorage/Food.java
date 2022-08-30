@@ -1,9 +1,5 @@
-package ru.job4j.ood.lsp.productStorage;
+package ru.job4j.ood.lsp.productstorage;
 
-import ru.job4j.gc.prof.Data;
-
-import javax.swing.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Food {
@@ -60,16 +56,5 @@ public class Food {
 
     public void setDiscount(double discount) {
         this.discount = discount;
-    }
-
-    @Override
-    public String toString() {
-        return "Food{" +
-                "name='" + name + '\'' +
-                ", expiryDate=" + expiryDate +
-                ", createDate=" + createDate +
-                ", price=" + price +
-                ", discount=" + discount +
-                '}';
     }
 }

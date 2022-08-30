@@ -1,4 +1,4 @@
-package ru.job4j.ood.lsp.productStorage;
+package ru.job4j.ood.lsp.productstorage;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,10 +21,10 @@ public class Main {
         stores.add(Shop.getInstance());
         stores.add(Warehouse.getInstance());
 
-        controlQuality.distribute(food1,stores);
-        controlQuality.distribute(food2,stores);
-        controlQuality.distribute(food3,stores);
-        controlQuality.distribute(food4,stores);
+        controlQuality.distribute(food1, stores);
+        controlQuality.distribute(food2, stores);
+        controlQuality.distribute(food3, stores);
+        controlQuality.distribute(food4, stores);
         System.out.println("Trash " + Trash.getFoodList());
         System.out.println("Shop " + Shop.getFoodList());
         System.out.println("Warehouse " + Warehouse.getFoodList());

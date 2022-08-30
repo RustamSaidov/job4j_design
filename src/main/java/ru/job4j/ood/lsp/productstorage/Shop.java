@@ -1,13 +1,14 @@
-package ru.job4j.ood.lsp.productStorage;
+package ru.job4j.ood.lsp.productstorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shop implements Store{
+public class Shop implements Store {
     private static Shop INSTANCE;
     private static List<Food> foodList;
 
-    private Shop() {}
+    private Shop() {
+    }
 
     public static Shop getInstance() {
         if (INSTANCE == null) {
@@ -24,10 +25,10 @@ public class Shop implements Store{
 
     @Override
     public void checkToAdd(Food food, double foodSheltLifePers) {
-        if (0.25 < foodSheltLifePers && foodSheltLifePers< 0.75){
+        if (0.25 < foodSheltLifePers && foodSheltLifePers < 0.75) {
             foodList.add(food);
-        } else if (0 < foodSheltLifePers && foodSheltLifePers< 0.25){
-            food.setPrice(food.getPrice()*food.getDiscount());
+        } else if (0 < foodSheltLifePers && foodSheltLifePers < 0.25) {
+            food.setPrice(food.getPrice() - food.getPrice() * food.getDiscount());
             foodList.add(food);
         }
     }
