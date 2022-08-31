@@ -1,4 +1,4 @@
-package ru.job4j.ood.isp.wrongExample;
+package ru.job4j.ood.isp.wrongexample;
 
 interface Device {
     void in(String data);
