@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Warehouse implements Store {
-    private List<Food> foodList = new ArrayList<>();
 
-    Warehouse() {
-    }
+    public static final double UPPER_SHELT_LIFE_PERS = 0.75;
+
+    private List<Food> foodList = new ArrayList<>();
 
     public List<Food> getFoodList() {
         return new ArrayList<Food>(foodList);

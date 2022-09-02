@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ControlQuality {
-    List<Store> stores;
+    private List<Store> stores;
 
 
     public ControlQuality(List<Store> stores) {

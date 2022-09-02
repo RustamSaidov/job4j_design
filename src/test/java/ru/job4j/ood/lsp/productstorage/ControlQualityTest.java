@@ -8,44 +8,45 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ControlQualityTest {
+    LocalDate uniDate = LocalDate.now();
 
     @Test
     public void whenDiffInDaysIs10() {
         Store store = new Warehouse();
-        int diffNiDays = store.getDateDifferenceInDays(LocalDate.of(2021, 1, 30),
-                LocalDate.of(2021, 1, 20));
+        int diffNiDays = store.getDateDifferenceInDays(uniDate,
+                uniDate.minusDays(10));
         assertThat(diffNiDays).isEqualTo(10);
     }
 
     @Test
     public void whenDiffInDaysIs60() {
         Store store = new Warehouse();
-        int diffNiDays = store.getDateDifferenceInDays(LocalDate.of(2021, 5, 1),
-                LocalDate.of(2021, 3, 2));
+        int diffNiDays = store.getDateDifferenceInDays(uniDate,
+                uniDate.minusDays(60));
         assertThat(diffNiDays).isEqualTo(60);
     }
 
     @Test
     public void whenDiffInDaysIsLessThan0() {
         Store store = new Warehouse();
-        int diffNiDays = store.getDateDifferenceInDays(LocalDate.of(2021, 1, 20),
-                LocalDate.of(2021, 1, 30));
+        int diffNiDays = store.getDateDifferenceInDays(uniDate.withDayOfMonth(1),
+                uniDate);
         assertThat(diffNiDays).isLessThan(0);
     }
 
     @Test
     public void whenShelfLifePersentageMoreThan75() {
         Store store = new Warehouse();
-        double sheltLifePers = store.getShelfLifePersent(LocalDate.of(2023, 1, 20),
-                LocalDate.of(2022, 8, 20));
+        double sheltLifePers = store.getShelfLifePersent(uniDate.plusYears(5),
+                uniDate);
         assertThat(sheltLifePers).isGreaterThan(0.75);
     }
 
     @Test
     public void whenShelfLifePersentageBetween25and75() {
         Store store = new Warehouse();
-        double sheltLifePers = store.getShelfLifePersent(LocalDate.of(2023, 1, 20),
-                LocalDate.of(2022, 3, 20));
+        double sheltLifePers = store.getShelfLifePersent(uniDate.plusYears(1),
+                uniDate.minusYears(1));
         assertThat(sheltLifePers).isLessThan(0.75);
         assertThat(sheltLifePers).isGreaterThan(0.25);
     }
@@ -53,8 +54,8 @@ class ControlQualityTest {
     @Test
     public void whenShelfLifePersentageBetween0and25() {
         Store store = new Warehouse();
-        double sheltLifePers = store.getShelfLifePersent(LocalDate.of(2022, 9, 20),
-                LocalDate.of(2022, 3, 20));
+        double sheltLifePers = store.getShelfLifePersent(uniDate.plusDays(1),
+                uniDate.minusYears(1));
         assertThat(sheltLifePers).isLessThan(0.25);
         assertThat(sheltLifePers).isGreaterThan(0);
     }
@@ -62,15 +63,15 @@ class ControlQualityTest {
     @Test
     public void whenShelfLifePersentageIsGone() {
         Store store = new Warehouse();
-        double sheltLifePers = store.getShelfLifePersent(LocalDate.of(2022, 3, 20),
-                LocalDate.of(2022, 9, 20));
+        double sheltLifePers = store.getShelfLifePersent(uniDate.minusDays(1),
+                uniDate);
         assertThat(sheltLifePers).isGreaterThan(0);
     }
 
     @Test
     public void whenFoodDestributedToWarehouse() {
-        Food food1 = new Food("chips", LocalDate.of(2025, 1, 30),
-                LocalDate.of(2022, 3, 30), 100, 0.50);
+        Food food1 = new Food("chips", uniDate.plusYears(3),
+                uniDate, 100, 0.50);
 
         List<Store> stores = new ArrayList<>();
         ControlQuality controlQuality = new ControlQuality(stores);
@@ -93,8 +94,8 @@ class ControlQualityTest {
 
     @Test
     public void whenFoodDestributedToShop() {
-        Food food2 = new Food("chocolade", LocalDate.of(2023, 1, 30),
-                LocalDate.of(2022, 3, 30), 100, 0.50);
+        Food food2 = new Food("chocolade", uniDate.plusYears(1),
+                uniDate.minusYears(1), 100, 0.50);
         List<Store> stores = new ArrayList<>();
         ControlQuality controlQuality = new ControlQuality(stores);
         Warehouse warehouse = new Warehouse();
@@ -116,10 +117,10 @@ class ControlQualityTest {
 
     @Test
     public void when2FoodDestributedToShop() {
-        Food food11 = new Food("chocolade", LocalDate.of(2023, 1, 30),
-                LocalDate.of(2022, 3, 30), 100, 0.50);
-        Food food22 = new Food("Candies", LocalDate.of(2023, 1, 30),
-                LocalDate.of(2022, 3, 30), 200, 0.50);
+        Food food11 = new Food("chocolade", uniDate.plusYears(1),
+                uniDate.minusYears(1), 100, 0.50);
+        Food food22 = new Food("Candies", uniDate.plusYears(1),
+                uniDate.minusYears(1), 200, 0.50);
         List<Store> stores = new ArrayList<>();
         ControlQuality controlQuality = new ControlQuality(stores);
         Warehouse warehouse = new Warehouse();
@@ -143,8 +144,8 @@ class ControlQualityTest {
 
     @Test
     public void whenFoodDestributedToShopAndPriceGetLower() {
-        Food food3 = new Food("milk", LocalDate.of(2022, 9, 30),
-                LocalDate.of(2022, 3, 30), 100, 0.20);
+        Food food3 = new Food("milk", uniDate.plusDays(1),
+                uniDate.minusMonths(1), 100, 0.20);
         List<Store> stores = new ArrayList<>();
         ControlQuality controlQuality = new ControlQuality(stores);
         Warehouse warehouse = new Warehouse();
@@ -167,8 +168,8 @@ class ControlQualityTest {
 
     @Test
     public void whenFoodDestributedToTrash() {
-        Food food4 = new Food("fish", LocalDate.of(2021, 1, 30),
-                LocalDate.of(2020, 3, 30), 100, 0.50);
+        Food food4 = new Food("fish", uniDate.minusMonths(1),
+                uniDate.minusMonths(2), 100, 0.50);
         List<Store> stores = new ArrayList<>();
         ControlQuality controlQuality = new ControlQuality(stores);
         Warehouse warehouse = new Warehouse();

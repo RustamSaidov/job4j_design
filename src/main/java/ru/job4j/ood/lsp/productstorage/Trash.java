@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trash implements Store {
-    private List<Food> foodList = new ArrayList<>();
+    public static final double END_SHELT_LIFE_PERS = 0;
 
-    Trash() {
-    }
+    private List<Food> foodList = new ArrayList<>();
 
     public List<Food> getFoodList() {
         return new ArrayList<Food>(foodList);

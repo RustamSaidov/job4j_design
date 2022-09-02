@@ -5,9 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public interface Store {
-    public static final double UPPER_SHELT_LIFE_PERS = 0.75;
-    public static final double LOWER_SHELT_LIFE_PERS = 0.25;
-    public static final double END_SHELT_LIFE_PERS = 0;
 
     default double getShelfLifePersent(LocalDate futureDay, LocalDate day) {
         int shelfLife;
@@ -27,6 +24,6 @@ public interface Store {
         return (int) Duration.between(ldt1, ldt2).toDays();
     }
 
-    public boolean checkToAdd(Food food);
+    boolean checkToAdd(Food food);
 
 }
