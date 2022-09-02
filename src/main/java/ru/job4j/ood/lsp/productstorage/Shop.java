@@ -4,32 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shop implements Store {
-    private static Shop instance;
-    private static List<Food> foodList;
 
-    private Shop() {
+    private List<Food> foodList = new ArrayList<>();
+
+    Shop() {
     }
 
-    public static Shop getInstance() {
-        if (instance == null) {
-            instance = new Shop();
-            foodList = new ArrayList<>();
-        }
-        return instance;
-    }
-
-
-    public static List<Food> getFoodList() {
-        return foodList;
+    public List<Food> getFoodList() {
+        return new ArrayList<Food>(foodList);
     }
 
     @Override
-    public void checkToAdd(Food food, double foodSheltLifePers) {
-        if (0.25 < foodSheltLifePers && foodSheltLifePers < 0.75) {
+    public boolean checkToAdd(Food food) {
+        double foodSheltLifePers = getShelfLifePersent(food.getExpiryDate(), food.getCreateDate());
+        boolean result = false;
+        if (0.25 < foodSheltLifePers && foodSheltLifePers < UPPER_SHELT_LIFE_PERS) {
             foodList.add(food);
-        } else if (0 < foodSheltLifePers && foodSheltLifePers < 0.25) {
+            result = true;
+        } else if (END_SHELT_LIFE_PERS < foodSheltLifePers && foodSheltLifePers < LOWER_SHELT_LIFE_PERS) {
             food.setPrice(food.getPrice() - food.getPrice() * food.getDiscount());
             foodList.add(food);
+            result = true;
         }
+        return result;
     }
 }

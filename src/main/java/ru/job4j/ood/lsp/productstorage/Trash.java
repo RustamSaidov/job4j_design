@@ -4,29 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trash implements Store {
-    private static Trash instance;
-    private static List<Food> foodList;
+    private List<Food> foodList = new ArrayList<>();
 
-    private Trash() {
+    Trash() {
     }
 
-    public static Trash getInstance() {
-        if (instance == null) {
-            instance = new Trash();
-            foodList = new ArrayList<>();
-        }
-        return instance;
-    }
-
-
-    public static List<Food> getFoodList() {
-        return foodList;
+    public List<Food> getFoodList() {
+        return new ArrayList<Food>(foodList);
     }
 
     @Override
-    public void checkToAdd(Food food, double foodSheltLifePers) {
-        if (foodSheltLifePers < 0) {
+    public boolean checkToAdd(Food food) {
+        double foodSheltLifePers = getShelfLifePersent(food.getExpiryDate(), food.getCreateDate());
+        boolean result = false;
+        if (foodSheltLifePers < END_SHELT_LIFE_PERS) {
             foodList.add(food);
+            result = true;
         }
+        return result;
     }
 }

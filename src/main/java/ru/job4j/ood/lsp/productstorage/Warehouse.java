@@ -4,30 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Warehouse implements Store {
+    private List<Food> foodList = new ArrayList<>();
 
-    private static Warehouse instance;
-    private static List<Food> foodList;
-
-    private Warehouse() {
+    Warehouse() {
     }
 
-    public static Warehouse getInstance() {
-        if (instance == null) {
-            instance = new Warehouse();
-            foodList = new ArrayList<>();
-        }
-        return instance;
-    }
-
-
-    public static List<Food> getFoodList() {
-        return foodList;
+    public List<Food> getFoodList() {
+        return new ArrayList<Food>(foodList);
     }
 
     @Override
-    public void checkToAdd(Food food, double foodSheltLifePers) {
-        if (foodSheltLifePers > 0.75) {
+    public boolean checkToAdd(Food food) {
+        double foodSheltLifePers = getShelfLifePersent(food.getExpiryDate(), food.getCreateDate());
+        boolean result = false;
+        if (foodSheltLifePers > UPPER_SHELT_LIFE_PERS) {
             foodList.add(food);
+            result = true;
         }
+        return result;
     }
 }

@@ -1,16 +1,16 @@
 package ru.job4j.ood.lsp.productstorage;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Food {
 
     private String name;
-    private Date expiryDate;
-    private Date createDate;
+    private LocalDate expiryDate;
+    private LocalDate createDate;
     private double price;
     private double discount;
 
-    public Food(String name, Date expiryDate, Date createDate, double price, double discount) {
+    public Food(String name, LocalDate expiryDate, LocalDate createDate, double price, double discount) {
         this.name = name;
         this.expiryDate = expiryDate;
         this.createDate = createDate;
@@ -26,19 +26,19 @@ public class Food {
         this.name = name;
     }
 
-    public Date getExpiryDate() {
+    public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
     }
 
-    public Date getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
     }
 
