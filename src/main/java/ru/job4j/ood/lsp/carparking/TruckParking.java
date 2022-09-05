@@ -15,11 +15,15 @@ public class TruckParking implements Parking {
     @Override
     public boolean checkAndAddCar(Car car) {
         boolean result = false;
-        if (car instanceof Truck && !Arrays.asList(truckParking).contains(((Truck) car).getCarNumber()) && Arrays.asList(truckParking).contains(null)) {
-            truckParking[binarySearch(truckParking, 0, truckParking.length, null)] = car;
+        if (car instanceof Truck && !Arrays.asList(truckParking).contains(car) && Arrays.asList(truckParking).contains(null)) {
+            truckParking[Arrays.asList(truckParking).indexOf(null)] = car;
             result = true;
         }
         return result;
+    }
+
+    public Car[] getCarArray() {
+        return truckParking.clone();
     }
 
     @Override

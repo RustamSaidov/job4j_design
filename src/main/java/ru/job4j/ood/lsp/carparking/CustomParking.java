@@ -24,4 +24,12 @@ public class CustomParking implements Parking{
     public boolean freeUpParkingPlace(Car car) {
         return false;
     }
+
+    public TruckParking getTruckParking() {
+        return truckParking;
+    }
+
+    public PassangerCarParking getPassangerCarParking() {
+        return passangerCarParking;
+    }
 }

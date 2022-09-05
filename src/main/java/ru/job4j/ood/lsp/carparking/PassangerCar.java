@@ -3,7 +3,7 @@ package ru.job4j.ood.lsp.carparking;
 import java.util.Objects;
 
 public class PassangerCar implements Car{
-    private static final int CAR_SIZE = 1;
+    public static final int CAR_SIZE = 1;
     private String carNumber;
 
     public PassangerCar(String carNumber) {
@@ -25,5 +25,10 @@ public class PassangerCar implements Car{
     @Override
     public int hashCode() {
         return Objects.hash(getCarNumber());
+    }
+
+    @Override
+    public int getCarSize() {
+        return CAR_SIZE;
     }
 }
