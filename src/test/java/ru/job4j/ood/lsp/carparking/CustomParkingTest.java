@@ -1,9 +1,6 @@
 package ru.job4j.ood.lsp.carparking;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,8 +56,16 @@ class CustomParkingTest {
         Car car = new PassangerCar("X111XX");
         passangerCarParking.checkAndAddCar(car);
         passArray[0] = car;
-
         assertArrayEquals(passArray, passangerCarParking.getCarArray());
+    }
+
+    @Test
+    public void whenTryToPutPassCarToTruckParking() {
+        TruckParking truckParking = new TruckParking(5);
+        Car car = new PassangerCar("X111XX");
+        assertThrows(IllegalArgumentException.class, () -> {
+            truckParking.checkAndAddCar(car);
+        });
 
     }
 

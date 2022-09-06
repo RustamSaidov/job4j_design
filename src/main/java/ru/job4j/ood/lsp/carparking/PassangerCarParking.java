@@ -20,11 +20,11 @@ public class PassangerCarParking implements Parking {
     @Override
     public boolean checkAndAddCar(Car car) {
         boolean result = false;
-        if (car instanceof PassangerCar && !Arrays.asList(passangerParking).contains(car) && Arrays.asList(passangerParking).contains(null)) {
+        if (car.getCarSize() == 1 && !Arrays.asList(passangerParking).contains(car) && Arrays.asList(passangerParking).contains(null)) {
             passangerParking[Arrays.asList(passangerParking).indexOf(null)] = car;
             result = true;
         }
-        if (car instanceof Truck && !Arrays.asList(passangerParking).contains(car) && isFreePlaceForATruck(car, passangerParking)) {
+        if (car.getCarSize() > 1 && !Arrays.asList(passangerParking).contains(car) && isFreePlaceForATruck(car, passangerParking)) {
             getPlacesForTruck(dimentionOfPlaceForTruck[0]);
             for (int i = 0; i < dimentionOfPlaceForTruck.length; i++) {
                 passangerParking[dimentionOfPlaceForTruck[i]] = car;

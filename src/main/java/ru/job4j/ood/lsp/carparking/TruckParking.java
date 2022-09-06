@@ -15,7 +15,10 @@ public class TruckParking implements Parking {
     @Override
     public boolean checkAndAddCar(Car car) {
         boolean result = false;
-        if (car instanceof Truck && !Arrays.asList(truckParking).contains(car) && Arrays.asList(truckParking).contains(null)) {
+        if (car.getCarSize() == 1) {
+            throw new IllegalArgumentException("Вы пытаетесь поставить легковую машину на грузовую парковку");
+        }
+        if (car.getCarSize() > 1 && !Arrays.asList(truckParking).contains(car) && Arrays.asList(truckParking).contains(null)) {
             truckParking[Arrays.asList(truckParking).indexOf(null)] = car;
             result = true;
         }
