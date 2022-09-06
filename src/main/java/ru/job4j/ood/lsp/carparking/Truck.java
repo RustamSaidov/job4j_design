@@ -2,8 +2,8 @@ package ru.job4j.ood.lsp.carparking;
 
 import java.util.Objects;
 
-public class Truck implements Car{
-    private  int carSize;
+public class Truck implements Car {
+    private int carSize;
     private String carNumber;
 
     public Truck(String carNumber, int carSize) {
@@ -11,18 +11,24 @@ public class Truck implements Car{
         this.carSize = carSize;
     }
 
+    @Override
     public String getCarNumber() {
         return carNumber;
     }
 
+    @Override
     public int getCarSize() {
         return carSize;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Truck)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Truck)) {
+            return false;
+        }
         Truck truck = (Truck) o;
         return getCarSize() == truck.getCarSize() && Objects.equals(getCarNumber(), truck.getCarNumber());
     }

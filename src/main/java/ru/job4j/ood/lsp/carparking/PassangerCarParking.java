@@ -24,11 +24,11 @@ public class PassangerCarParking implements Parking {
             passangerParking[Arrays.asList(passangerParking).indexOf(null)] = car;
             result = true;
         }
-        if (car instanceof Truck && !Arrays.asList(passangerParking).contains(car) && isFreePlaceForATruck(car)) {
-            for(int i = 0; i<dimentionOfPlaceForTruck.length; i++){
+        if (car instanceof Truck && !Arrays.asList(passangerParking).contains(car) && isFreePlaceForATruck(car, passangerParking)) {
+            getPlacesForTruck(dimentionOfPlaceForTruck[0]);
+            for (int i = 0; i < dimentionOfPlaceForTruck.length; i++) {
                 passangerParking[dimentionOfPlaceForTruck[i]] = car;
             }
-
             result = true;
         }
         return result;
@@ -43,23 +43,35 @@ public class PassangerCarParking implements Parking {
         return false;
     }
 
-    private boolean isFreePlaceForATruck(Car car){
+    public boolean isFreePlaceForATruck(Car car, Car[] passangerParking) {
         boolean result = true;
         dimentionOfPlaceForTruck = new int[car.getCarSize()];
         Arrays.fill(dimentionOfPlaceForTruck, -1);
-        for(int i=0; i<passangerParking.length; i++){
-            for(int j = i; j < i+car.getCarSize(); j++){
-                if(!(passangerParking[j] == null)){
-                    result = false;
+
+        for (int i = 0; i < passangerParking.length; i++) {
+            result = true;
+            if (i + car.getCarSize() < passangerParking.length + 1) {
+                for (int j = 0; j < car.getCarSize(); j++) {
+                    if (!(passangerParking[j + i] == null)) {
+                        result = false;
+                    }
                 }
+            } else {
+                result = false;
             }
-            if(result == true){
-                int j = i;
-                for (int k = 0; k<dimentionOfPlaceForTruck.length; k++){
-                    dimentionOfPlaceForTruck[k]= j++;
-                }
+            if (result) {
+                dimentionOfPlaceForTruck[0] = i;
+                break;
             }
         }
-        return  result;
+        return result;
+    }
+
+    private void getPlacesForTruck(int beginningOfATruckPlace) {
+        int j = beginningOfATruckPlace;
+        for (int k = 0; k < dimentionOfPlaceForTruck.length; k++) {
+            dimentionOfPlaceForTruck[k] = j;
+            j = j + 1;
+        }
     }
 }
