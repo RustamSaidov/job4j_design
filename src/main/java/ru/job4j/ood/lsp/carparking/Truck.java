@@ -7,8 +7,12 @@ public class Truck implements Car {
     private String carNumber;
 
     public Truck(String carNumber, int carSize) {
-        this.carNumber = carNumber;
-        this.carSize = carSize;
+        if (carSize == 1) {
+            throw new IllegalArgumentException("Вы пытаетесь зарегистрировать грузовик размером с легковушку");
+        } else {
+            this.carNumber = carNumber;
+            this.carSize = carSize;
+        }
     }
 
     @Override

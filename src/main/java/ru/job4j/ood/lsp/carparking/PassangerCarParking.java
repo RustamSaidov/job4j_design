@@ -1,38 +1,40 @@
 package ru.job4j.ood.lsp.carparking;
 
-import ru.job4j.ood.lsp.productstorage.Food;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static java.util.Arrays.binarySearch;
+import java.util.*;
 
 public class PassangerCarParking implements Parking {
     private int[] dimentionOfPlaceForTruck;
+    private int sizeOfAParking;
+    private int numberOfCarsInParking;
 
     private Car[] passangerParking;
 
     public PassangerCarParking(int sizeOfAParking) {
-        this.passangerParking = new Car[sizeOfAParking];
+        this.sizeOfAParking = sizeOfAParking;
+        this.passangerParking = new Car[this.sizeOfAParking];
+        numberOfCarsInParking = 0;
     }
 
     @Override
     public boolean checkAndAddCar(Car car) {
         boolean result = false;
-        if (car.getCarSize() == 1 && !Arrays.asList(passangerParking).contains(car) && Arrays.asList(passangerParking).contains(null)) {
+        Set<Car> setOfCars = new HashSet<>(Arrays.asList(passangerParking));
+        if (car.getCarSize() == 1 && !setOfCars.contains(car) && numberOfCarsInParking < sizeOfAParking) {
             passangerParking[Arrays.asList(passangerParking).indexOf(null)] = car;
+            numberOfCarsInParking = numberOfCarsInParking + car.getCarSize();
             result = true;
         }
-        if (car.getCarSize() > 1 && !Arrays.asList(passangerParking).contains(car) && isFreePlaceForATruck(car, passangerParking)) {
+        if (car.getCarSize() > 1 && !setOfCars.contains(car) && isFreePlaceForATruck(car, passangerParking)) {
             getPlacesForTruck(dimentionOfPlaceForTruck[0]);
             for (int i = 0; i < dimentionOfPlaceForTruck.length; i++) {
                 passangerParking[dimentionOfPlaceForTruck[i]] = car;
             }
+            numberOfCarsInParking = numberOfCarsInParking + car.getCarSize();
             result = true;
         }
         return result;
     }
+//    }
 
     public Car[] getCarArray() {
         return passangerParking.clone();
@@ -48,9 +50,9 @@ public class PassangerCarParking implements Parking {
         dimentionOfPlaceForTruck = new int[car.getCarSize()];
         Arrays.fill(dimentionOfPlaceForTruck, -1);
 
-        for (int i = 0; i < passangerParking.length; i++) {
+        for (int i = 0; i < sizeOfAParking; i++) {
             result = true;
-            if (i + car.getCarSize() < passangerParking.length + 1) {
+            if (i + car.getCarSize() < sizeOfAParking + 1) {
                 for (int j = 0; j < car.getCarSize(); j++) {
                     if (!(passangerParking[j + i] == null)) {
                         result = false;
