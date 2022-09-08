@@ -1,4 +1,4 @@
-package ru.job4j.ood.isp.menu;
+/*package ru.job4j.ood.isp.menu;
 
 import java.util.*;
 
@@ -101,3 +101,5 @@ public class SimpleMenu implements Menu {
     }
 
 }
+
+ */
