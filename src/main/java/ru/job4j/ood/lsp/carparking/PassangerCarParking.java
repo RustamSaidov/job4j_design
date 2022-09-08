@@ -34,7 +34,6 @@ public class PassangerCarParking implements Parking {
         }
         return result;
     }
-//    }
 
     public Car[] getCarArray() {
         return passangerParking.clone();
