@@ -10,19 +10,14 @@ public class CustomParking implements Parking {
     }
 
     @Override
-    public boolean checkAndAddCar(Car car) {
+    public boolean add(Car car) {
         boolean result;
-        if (car.getCarSize() > 1 && truckParking.checkAndAddCar(car)) {
+        if (car.getCarSize() > 1 && truckParking.add(car)) {
             result = true;
         } else {
-            result = passangerCarParking.checkAndAddCar(car);
+            result = passangerCarParking.add(car);
         }
         return result;
-    }
-
-    @Override
-    public boolean freeUpParkingPlace(Car car) {
-        return false;
     }
 
     public TruckParking getTruckParking() {

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class PassangerCar implements Car {
     public static final int CAR_SIZE = 1;
-    private String carNumber;
+    private final String carNumber;
 
     public PassangerCar(String carNumber) {
         this.carNumber = carNumber;

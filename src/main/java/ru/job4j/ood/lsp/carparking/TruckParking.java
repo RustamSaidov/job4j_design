@@ -17,7 +17,7 @@ public class TruckParking implements Parking {
     }
 
     @Override
-    public boolean checkAndAddCar(Car car) {
+    public boolean add(Car car) {
         boolean result = false;
         Set<Car> setOfCars = new HashSet<>(Arrays.asList(truckParking));
         if (car.getCarSize() > 1 && !setOfCars.contains(car) && numberOfCarsInParking < sizeOfAParking) {
@@ -30,10 +30,5 @@ public class TruckParking implements Parking {
 
     public Car[] getCarArray() {
         return truckParking.clone();
-    }
-
-    @Override
-    public boolean freeUpParkingPlace(Car car) {
-        return false;
     }
 }

@@ -16,15 +16,15 @@ public class PassangerCarParking implements Parking {
     }
 
     @Override
-    public boolean checkAndAddCar(Car car) {
+    public boolean add(Car car) {
         boolean result = false;
         Set<Car> setOfCars = new HashSet<>(Arrays.asList(passangerParking));
-        if (car.getCarSize() == 1 && !setOfCars.contains(car) && numberOfCarsInParking < sizeOfAParking) {
+        if (car.getCarSize() == PassangerCar.CAR_SIZE && !setOfCars.contains(car) && numberOfCarsInParking < sizeOfAParking) {
             passangerParking[Arrays.asList(passangerParking).indexOf(null)] = car;
             numberOfCarsInParking = numberOfCarsInParking + car.getCarSize();
             result = true;
         }
-        if (car.getCarSize() > 1 && !setOfCars.contains(car) && isFreePlaceForATruck(car, passangerParking)) {
+        if (car.getCarSize() > 0 && car.getCarSize() != PassangerCar.CAR_SIZE && !setOfCars.contains(car) && isFreePlaceForATruck(car, passangerParking)) {
             getPlacesForTruck(dimentionOfPlaceForTruck[0]);
             for (int i = 0; i < dimentionOfPlaceForTruck.length; i++) {
                 passangerParking[dimentionOfPlaceForTruck[i]] = car;
@@ -37,11 +37,6 @@ public class PassangerCarParking implements Parking {
 
     public Car[] getCarArray() {
         return passangerParking.clone();
-    }
-
-    @Override
-    public boolean freeUpParkingPlace(Car car) {
-        return false;
     }
 
     public boolean isFreePlaceForATruck(Car car, Car[] passangerParking) {

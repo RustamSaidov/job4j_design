@@ -3,8 +3,8 @@ package ru.job4j.ood.lsp.carparking;
 import java.util.Objects;
 
 public class Truck implements Car {
-    private int carSize;
-    private String carNumber;
+    private final int carSize;
+    private final String carNumber;
 
     public Truck(String carNumber, int carSize) {
         if (carSize == 1) {
