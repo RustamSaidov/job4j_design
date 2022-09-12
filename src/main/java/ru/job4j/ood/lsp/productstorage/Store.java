@@ -3,6 +3,7 @@ package ru.job4j.ood.lsp.productstorage;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface Store {
 
@@ -26,4 +27,14 @@ public interface Store {
 
     boolean checkToAdd(Food food);
 
+    public List<Food> getFoodList();
+
+    public default boolean clearTheStorage(List<Food> foodList) {
+        boolean result = false;
+        foodList.clear();
+        if (foodList.isEmpty()) {
+            result = true;
+        }
+        return result;
+    }
 }
