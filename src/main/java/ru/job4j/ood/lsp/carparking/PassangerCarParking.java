@@ -17,22 +17,19 @@ public class PassangerCarParking implements Parking {
 
     @Override
     public boolean add(Car car) {
-        boolean result = false;
         Set<Car> setOfCars = new HashSet<>(Arrays.asList(passangerParking));
         if (car.getCarSize() == PassangerCar.CAR_SIZE && !setOfCars.contains(car) && numberOfCarsInParking < sizeOfAParking) {
-            passangerParking[Arrays.asList(passangerParking).indexOf(null)] = car;
-            numberOfCarsInParking = numberOfCarsInParking + car.getCarSize();
-            result = true;
+            passangerParking[numberOfCarsInParking++] = car;
+            return true;
         }
-        if (car.getCarSize() > 0 && car.getCarSize() != PassangerCar.CAR_SIZE && !setOfCars.contains(car) && isFreePlaceForATruck(car, passangerParking)) {
-            getPlacesForTruck(dimentionOfPlaceForTruck[0]);
-            for (int i = 0; i < dimentionOfPlaceForTruck.length; i++) {
-                passangerParking[dimentionOfPlaceForTruck[i]] = car;
-            }
-            numberOfCarsInParking = numberOfCarsInParking + car.getCarSize();
-            result = true;
+        if (car.getCarSize() < PassangerCar.CAR_SIZE || !isFreePlaceForATruck(car, passangerParking)) {
+            return false;
         }
-        return result;
+        int tempInt = numberOfCarsInParking;
+        for (int i = tempInt; i < tempInt + car.getCarSize(); i++) {
+            passangerParking[numberOfCarsInParking++] = car;
+        }
+        return true;
     }
 
     public Car[] getCarArray() {
@@ -61,13 +58,5 @@ public class PassangerCarParking implements Parking {
             }
         }
         return result;
-    }
-
-    private void getPlacesForTruck(int beginningOfATruckPlace) {
-        int j = beginningOfATruckPlace;
-        for (int k = 0; k < dimentionOfPlaceForTruck.length; k++) {
-            dimentionOfPlaceForTruck[k] = j;
-            j = j + 1;
-        }
     }
 }
