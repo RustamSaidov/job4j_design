@@ -1,4 +1,4 @@
-/*package ru.job4j.ood.isp.menu;
+package ru.job4j.ood.isp.menu;
 
 import java.util.*;
 
@@ -8,21 +8,47 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
+        boolean result = false;
+        MenuItem menuItem = new SimpleMenuItem(childName,actionDelegate);
+        if(Objects.equals(parentName, Menu.ROOT)){
+            rootElements.add(menuItem);
+            result = true;
+        } else {
+            Optional<ItemInfo> itemInfo = findItem(parentName);
+            menuItem = itemInfo.get().menuItem;
 
+            if (itemInfo.isPresent()) {
+                int index = rootElements.indexOf(menuItem);
+                rootElements.get(index).getChildren().add(menuItem);
+                result = true;
+            }
+        }
+        return result;
     }
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-
+        Optional<ItemInfo> itemInfo = findItem(itemName);
+        MenuItem menuItem = itemInfo.get().menuItem;
+        MenuItemInfo menuItemInfo = new MenuItemInfo(menuItem, itemInfo.get().number);
+        return Optional.of(menuItemInfo);
     }
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-
+        return null;
     }
 
     private Optional<ItemInfo> findItem(String name) {
-
+        DFSIterator dfsIterator = new DFSIterator();
+        ItemInfo i = null;
+        while (dfsIterator.hasNext()) {
+            i = dfsIterator.next();
+            if (name.equals(i.menuItem.getName())) {
+                break;
+            }
+        }
+        return Optional.ofNullable(i);
     }
 
     private static class SimpleMenuItem implements MenuItem {
@@ -99,7 +125,4 @@ public class SimpleMenu implements Menu {
             this.number = number;
         }
     }
-
 }
-
- */
