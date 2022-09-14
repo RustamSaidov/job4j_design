@@ -18,14 +18,11 @@ public class TruckParking implements Parking {
 
     @Override
     public boolean add(Car car) {
-        boolean result = false;
-        Set<Car> setOfCars = new HashSet<>(Arrays.asList(truckParking));
-        if (car.getCarSize() > 0 && car.getCarSize() != PassangerCar.CAR_SIZE && !setOfCars.contains(car) && numberOfCarsInParking < sizeOfAParking) {
-            truckParking[Arrays.asList(truckParking).indexOf(null)] = car;
-            numberOfCarsInParking++;
-            result = true;
+        if (car.getCarSize() <= PassangerCar.CAR_SIZE || sizeOfAParking == numberOfCarsInParking) {
+            return false;
         }
-        return result;
+        truckParking[numberOfCarsInParking++] = car;
+        return true;
     }
 
     public Car[] getCarArray() {

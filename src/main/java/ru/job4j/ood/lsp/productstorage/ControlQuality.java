@@ -5,10 +5,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 public class ControlQuality {
     private List<Store> stores;
@@ -23,6 +20,17 @@ public class ControlQuality {
             if (stores.get(i).checkToAdd(food)) {
                 break;
             }
+        }
+    }
+
+    public void resort() {
+        List<Food> tempStorage = new ArrayList<>();
+        for (Store store : stores) {
+            tempStorage.addAll(store.getFoodList());
+            store.clearTheStorage(store.getFoodList());
+        }
+        for (Food food : tempStorage) {
+            distribute(food);
         }
     }
 }
