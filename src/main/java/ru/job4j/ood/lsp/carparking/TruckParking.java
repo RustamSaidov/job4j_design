@@ -25,6 +25,7 @@ public class TruckParking implements Parking {
         return true;
     }
 
+    @Override
     public Car[] getCarArray() {
         return truckParking.clone();
     }

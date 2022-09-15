@@ -9,15 +9,15 @@ public class SimpleMenu implements Menu {
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
         boolean result = false;
-        MenuItem menuItem = new SimpleMenuItem(childName,actionDelegate);
-        if(Objects.equals(parentName, Menu.ROOT)){
+        MenuItem menuItem = new SimpleMenuItem(childName, actionDelegate);
+        if (Objects.equals(parentName, Menu.ROOT)) {
             rootElements.add(menuItem);
             result = true;
         } else {
             Optional<ItemInfo> itemInfo = findItem(parentName);
 
-            System.out.println("itemInfo: " + itemInfo.get().menuItem.getName()+" "+itemInfo.get().menuItem.getChildren().toString()+" "
-                    +itemInfo.get().menuItem.getActionDelegate()+" "+itemInfo.get().number);
+            System.out.println("itemInfo: " + itemInfo.get().menuItem.getName() + " " + itemInfo.get().menuItem.getChildren().toString() + " "
+                    + itemInfo.get().menuItem.getActionDelegate() + " " + itemInfo.get().number);
 
             if (itemInfo.isPresent()) {
                 MenuItem childMenuItem = new SimpleMenuItem(childName, actionDelegate);
@@ -40,6 +40,7 @@ public class SimpleMenu implements Menu {
     public Iterator<MenuItemInfo> iterator() {
         return new Iterator<MenuItemInfo>() {
             private int point = 0;
+
             @Override
             public boolean hasNext() {
                 return point < rootElements.size();
@@ -51,7 +52,7 @@ public class SimpleMenu implements Menu {
                     throw new NoSuchElementException();
                 }
                 MenuItem menuItem = rootElements.get(point++);
-                return new MenuItemInfo(menuItem,findItem(menuItem.getName()).get().number);
+                return new MenuItemInfo(menuItem, findItem(menuItem.getName()).get().number);
             }
         };
     }
@@ -125,7 +126,8 @@ public class SimpleMenu implements Menu {
             String lastNumber = numbers.removeFirst();
             List<MenuItem> children = current.getChildren();
             int currentNumber = children.size();
-            for (var i = children.listIterator(children.size()); i.hasPrevious();) {
+            for (var i = children.listIterator(children.size()); i.hasPrevious();
+            ) {
                 stack.addFirst(i.previous());
                 numbers.addFirst(lastNumber.concat(String.valueOf(currentNumber--)).concat("."));
             }

@@ -20,6 +20,11 @@ public class CustomParking implements Parking {
         return result;
     }
 
+    @Override
+    public Car[] getCarArray() {
+        return new Car[0];
+    }
+
     public TruckParking getTruckParking() {
         return truckParking;
     }

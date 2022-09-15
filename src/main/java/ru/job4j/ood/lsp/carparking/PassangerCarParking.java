@@ -8,6 +8,7 @@ public class PassangerCarParking implements Parking {
     private int numberOfCarsInParking;
 
     private Car[] passangerParking;
+    private final Set<Car> setOfCars = new HashSet<>();
 
     public PassangerCarParking(int sizeOfAParking) {
         this.sizeOfAParking = sizeOfAParking;
@@ -17,8 +18,8 @@ public class PassangerCarParking implements Parking {
 
     @Override
     public boolean add(Car car) {
-        Set<Car> setOfCars = new HashSet<>(Arrays.asList(passangerParking));
         if (car.getCarSize() == PassangerCar.CAR_SIZE && !setOfCars.contains(car) && numberOfCarsInParking < sizeOfAParking) {
+            setOfCars.add(car);
             passangerParking[numberOfCarsInParking++] = car;
             return true;
         }
@@ -29,15 +30,18 @@ public class PassangerCarParking implements Parking {
         for (int i = tempInt; i < tempInt + car.getCarSize(); i++) {
             passangerParking[numberOfCarsInParking++] = car;
         }
+        setOfCars.add(car);
         return true;
     }
 
+    @Override
     public Car[] getCarArray() {
         return passangerParking.clone();
     }
 
     public boolean isFreePlaceForATruck(Car car, Car[] passangerParking) {
-        boolean result = true;
+        return numberOfCarsInParking + car.getCarSize() < passangerParking.length;
+        /*boolean result = true;
         dimentionOfPlaceForTruck = new int[car.getCarSize()];
         Arrays.fill(dimentionOfPlaceForTruck, -1);
 
@@ -57,6 +61,6 @@ public class PassangerCarParking implements Parking {
                 break;
             }
         }
-        return result;
+        return result;*/
     }
 }
