@@ -15,11 +15,13 @@ public class SimpleMenu implements Menu {
             result = true;
         } else {
             Optional<ItemInfo> itemInfo = findItem(parentName);
-            menuItem = itemInfo.get().menuItem;
+
+            System.out.println("itemInfo: " + itemInfo.get().menuItem.getName()+" "+itemInfo.get().menuItem.getChildren().toString()+" "
+                    +itemInfo.get().menuItem.getActionDelegate()+" "+itemInfo.get().number);
 
             if (itemInfo.isPresent()) {
-                int index = rootElements.indexOf(menuItem);
-                rootElements.get(index).getChildren().add(menuItem);
+                MenuItem childMenuItem = new SimpleMenuItem(childName, actionDelegate);
+                itemInfo.get().menuItem.getChildren().add(childMenuItem);
                 result = true;
             }
         }
@@ -36,19 +38,36 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-        return null;
+        return new Iterator<MenuItemInfo>() {
+            private int point = 0;
+            @Override
+            public boolean hasNext() {
+                return point < rootElements.size();
+            }
+
+            @Override
+            public MenuItemInfo next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                MenuItem menuItem = rootElements.get(point++);
+                return new MenuItemInfo(menuItem,findItem(menuItem.getName()).get().number);
+            }
+        };
     }
 
     private Optional<ItemInfo> findItem(String name) {
         DFSIterator dfsIterator = new DFSIterator();
         ItemInfo i = null;
+        ItemInfo j = null;
         while (dfsIterator.hasNext()) {
             i = dfsIterator.next();
             if (name.equals(i.menuItem.getName())) {
+                j = i;
                 break;
             }
         }
-        return Optional.ofNullable(i);
+        return Optional.ofNullable(j);
     }
 
     private static class SimpleMenuItem implements MenuItem {
