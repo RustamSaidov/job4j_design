@@ -27,7 +27,7 @@ public class SimpleMenuTest {
         assertThat(new Menu.MenuItemInfo(
                 "Покормить собаку", List.of(), STUB_ACTION, "2."))
                 .isEqualTo(menu.select("Покормить собаку").get());
-        //menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
+        /*menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));*/
         MenuPrinterClass menuPrinterClass = new MenuPrinterClass();
         menuPrinterClass.print(menu);
     }
