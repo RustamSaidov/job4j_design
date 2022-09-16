@@ -15,10 +15,6 @@ public class SimpleMenu implements Menu {
             result = true;
         } else {
             Optional<ItemInfo> itemInfo = findItem(parentName);
-
-            System.out.println("itemInfo: " + itemInfo.get().menuItem.getName() + " " + itemInfo.get().menuItem.getChildren().toString() + " "
-                    + itemInfo.get().menuItem.getActionDelegate() + " " + itemInfo.get().number);
-
             if (itemInfo.isPresent()) {
                 MenuItem childMenuItem = new SimpleMenuItem(childName, actionDelegate);
                 itemInfo.get().menuItem.getChildren().add(childMenuItem);
@@ -38,12 +34,13 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
+        DFSIterator dfsIterator = new DFSIterator();
         return new Iterator<MenuItemInfo>() {
             private int point = 0;
 
             @Override
             public boolean hasNext() {
-                return point < rootElements.size();
+                return dfsIterator.hasNext();
             }
 
             @Override
@@ -51,7 +48,8 @@ public class SimpleMenu implements Menu {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                MenuItem menuItem = rootElements.get(point++);
+                ItemInfo itemInfo = dfsIterator.next();
+                MenuItem menuItem = itemInfo.menuItem;
                 return new MenuItemInfo(menuItem, findItem(menuItem.getName()).get().number);
             }
         };
