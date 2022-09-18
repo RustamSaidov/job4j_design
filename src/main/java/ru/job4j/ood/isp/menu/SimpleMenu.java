@@ -9,6 +9,12 @@ public class SimpleMenu implements Menu {
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
         boolean result = false;
+
+        if (findItem(childName).isPresent()) {
+            System.out.println("Данный пункт меню уже присутствует.");
+            return false;
+        }
+
         MenuItem menuItem = new SimpleMenuItem(childName, actionDelegate);
         if (Objects.equals(parentName, Menu.ROOT)) {
             rootElements.add(menuItem);
@@ -45,9 +51,6 @@ public class SimpleMenu implements Menu {
 
             @Override
             public MenuItemInfo next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
                 ItemInfo itemInfo = dfsIterator.next();
                 MenuItem menuItem = itemInfo.menuItem;
                 return new MenuItemInfo(menuItem, findItem(menuItem.getName()).get().number);

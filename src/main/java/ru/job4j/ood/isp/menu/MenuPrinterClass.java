@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.StringJoiner;
 
 public class MenuPrinterClass implements MenuPrinter {
+    public static final String SEPATATOR = " ";
     @Override
     public void print(Menu menu) {
         Iterator iterator = menu.iterator();
@@ -26,7 +27,7 @@ public class MenuPrinterClass implements MenuPrinter {
     private static String createOffset(String number) {
         StringJoiner joiner = new StringJoiner("");
         for (int i = 0; i < countOccurrences(number, '.'); i++) {
-            joiner.add(" ");
+            joiner.add(SEPATATOR);
         }
         return joiner.toString();
     }
