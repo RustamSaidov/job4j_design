@@ -19,7 +19,7 @@ public class MenuPrinterClass implements MenuPrinter {
     }
 
     private static String createOffset(String numberOfMenuItem) {
-        int countOccurrences = numberOfMenuItem.split("\\.").length;
+        int countOccurrences = numberOfMenuItem.split("\\.").length - 1;
         return SEPATATOR.repeat(countOccurrences);
     }
 }

@@ -27,10 +27,8 @@ public class TODOApp {
             choise = scanner.nextInt();
             if (choise == ADD_MENU_ITEM) {
                 System.out.println(SET_PARENT_NAME);
-                scanner = new Scanner(System.in);
                 String parentName = scanner.nextLine();
                 System.out.println(SET_CHILD_NAME);
-                scanner = new Scanner(System.in);
                 String childName = scanner.nextLine();
                 if (parentName.equals("ROOT")) {
                     menu.add(Menu.ROOT, childName, System.out::println);
