@@ -1,11 +1,16 @@
 package ru.job4j.ood.isp.menu;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 public class SimpleMenuTest {
 
@@ -37,15 +42,27 @@ public class SimpleMenuTest {
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
         Assert.assertNull(menu.select("Несуществующий пункт меню"));
     }
+/*
+    private ByteArrayOutputStream output = new ByteArrayOutputStream();
 
+
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(output));
+    }
     @Test
     public void printTest() {
         Menu menu = new SimpleMenu();
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
-        menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
-        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
-        menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
-        menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
-
+        MenuPrinterClass menuPrinterClass = new MenuPrinterClass();
+        menuPrinterClass.print(menu);
+        assertEquals("1.Сходить в магазин", output.toString());
     }
+
+    @After
+    public void cleanUpStreams() {
+        System.setOut(null);
+    }
+
+    */
 }

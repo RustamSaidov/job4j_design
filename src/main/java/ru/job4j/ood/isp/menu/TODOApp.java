@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class TODOApp {
     public static final String INITIAL_MENU = """
-                    Выберите, что хотите сделать:
-                    1 - Добавить элемент меню.
-                    2 - Вывести меню.
-                    0 - Выйти.
-                    """;
+            Выберите, что хотите сделать:
+            1 - Добавить элемент меню.
+            2 - Вывести меню.
+            0 - Выйти.
+            """;
 
     public static final String SET_PARENT_NAME = "Введите название родительского имени пункта меню (введите ROOT, если это верхеуровневый пункт меню):";
     public static final String SET_CHILD_NAME = "Введите название пункта меню:";

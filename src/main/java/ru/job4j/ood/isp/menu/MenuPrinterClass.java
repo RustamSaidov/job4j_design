@@ -5,6 +5,7 @@ import java.util.StringJoiner;
 
 public class MenuPrinterClass implements MenuPrinter {
     public static final String SEPATATOR = " ";
+
     @Override
     public void print(Menu menu) {
         Iterator iterator = menu.iterator();
