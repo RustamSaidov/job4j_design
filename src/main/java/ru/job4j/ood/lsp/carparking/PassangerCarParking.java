@@ -18,7 +18,10 @@ public class PassangerCarParking implements Parking {
 
     @Override
     public boolean add(Car car) {
-        if (car.getCarSize() == PassangerCar.CAR_SIZE && !setOfCars.contains(car) && numberOfCarsInParking < sizeOfAParking) {
+        if (setOfCars.contains(car)) {
+            return false;
+        }
+        if (car.getCarSize() == PassangerCar.CAR_SIZE && numberOfCarsInParking < sizeOfAParking) {
             setOfCars.add(car);
             passangerParking[numberOfCarsInParking++] = car;
             return true;
