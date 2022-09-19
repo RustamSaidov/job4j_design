@@ -33,9 +33,11 @@ public class SimpleMenu implements Menu {
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
         Optional<ItemInfo> itemInfo = findItem(itemName);
-        MenuItem menuItem = itemInfo.get().menuItem;
-        MenuItemInfo menuItemInfo = new MenuItemInfo(menuItem, itemInfo.get().number);
-        return Optional.of(menuItemInfo);
+        if(!itemInfo.isPresent()){
+            System.out.println("Данного пункта меню не существует");
+            return null;
+        }
+        return findItem(itemName).map(i -> new MenuItemInfo(itemInfo.get().menuItem, itemInfo.get().number));
     }
 
     @Override

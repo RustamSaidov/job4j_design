@@ -1,5 +1,6 @@
 package ru.job4j.ood.isp.menu;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -28,5 +29,23 @@ public class SimpleMenuTest {
                 "Покормить собаку", List.of(), STUB_ACTION, "2."))
                 .isEqualTo(menu.select("Покормить собаку").get());
         menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
+    }
+
+    @Test
+    public void whenSelectUnknownMenuItem() {
+        Menu menu = new SimpleMenu();
+        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
+        Assert.assertNull(menu.select("Несуществующий пункт меню"));
+    }
+
+    @Test
+    public void printTest() {
+        Menu menu = new SimpleMenu();
+        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
+        menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
+        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
+        menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
+        menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
+
     }
 }

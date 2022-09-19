@@ -16,9 +16,6 @@ public class TODOApp {
     public static final int SHOW_MENU = 2;
     public static final int EXIT = 0;
 
-
-
-
     private static Menu menu = new SimpleMenu();
 
     public static void main(String[] args) {

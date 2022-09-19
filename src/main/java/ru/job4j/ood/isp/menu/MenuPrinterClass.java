@@ -10,25 +10,15 @@ public class MenuPrinterClass implements MenuPrinter {
         Iterator iterator = menu.iterator();
         while (iterator.hasNext()) {
             Menu.MenuItemInfo mii = (Menu.MenuItemInfo) iterator.next();
-            String number = mii.getNumber();
+            String numberOfMenuItem = mii.getNumber();
             String name = mii.getName();
-            String offset = createOffset(number);
-            System.out.println(offset + number + name);
+            String offset = createOffset(numberOfMenuItem);
+            System.out.println(offset + numberOfMenuItem + name);
         }
-
     }
 
-    private static long countOccurrences(String str, char ch) {
-        return str.chars()
-                .filter(c -> c == ch)
-                .count();
-    }
-
-    private static String createOffset(String number) {
-        StringJoiner joiner = new StringJoiner("");
-        for (int i = 0; i < countOccurrences(number, '.'); i++) {
-            joiner.add(SEPATATOR);
-        }
-        return joiner.toString();
+    private static String createOffset(String numberOfMenuItem) {
+        int countOccurrences = numberOfMenuItem.split("\\.").length;
+        return SEPATATOR.repeat(countOccurrences);
     }
 }
