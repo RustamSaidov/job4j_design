@@ -91,3 +91,37 @@ update products set count = 26 where name = 'product_1';
 update products set count = 26 where name = 'product_2';
 
 commit;
+
+/*HOMETASK:*/
+
+create table users (
+    id serial primary key,
+    name varchar(50),
+    email varchar(50),
+    money integer
+);
+
+insert into users (name, email, money) VALUES ('Alan', 'Alan1980@gmail.com', 100);
+insert into users (name, email, money) VALUES ('Bob', 'Bob1990@gmail.com', 200);
+insert into users (name, email, money) VALUES ('Caleb', 'Caleb2000@gmail.com', 300);
+
+/*1st transaction:*/
+begin transaction isolation level serializable;
+
+SELECT count (*) FROM users;
+
+/*2nd transaction:*/
+begin transaction isolation level serializable;
+
+/*1st transaction:*/
+insert into users (name, email, money) VALUES ('Dave', 'Dave2010@gmail.com', 400);
+
+/*2nd transaction:*/
+SELECT count (*) FROM users;
+
+insert into users (name, email, money) VALUES ('Eve', 'Eve2020@gmail.com', 500);
+
+commit;
+
+/*1st transaction:*/
+commit;
