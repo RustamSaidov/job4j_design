@@ -87,3 +87,5 @@ select * from nature_events;
 rollback to savepoint_after_fourth_record;
 
 select * from nature_events;
+
+rollback to savepoint_after_fifth_record;
