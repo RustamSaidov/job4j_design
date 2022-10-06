@@ -22,7 +22,7 @@ public class OptionalGetAndIsPresentTest {
         assertEquals(
                 2,
                 OptionalGetAndIsPresent.get(
-                        new int[] {1, 2, 3},
+                        new int[]{1, 2, 3},
                         3
                 )
         );
